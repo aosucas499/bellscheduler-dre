@@ -1,0 +1,126 @@
+#! /bin/bash
+
+clear
+# Variables 
+#
+ROJO="\033[1;31m"
+NORMAL="\033[0m"
+AZUL="\033[1;34m"
+DISTRO=$(lsb_release -cs)
+DESKTOP=$XDG_CURRENT_DESKTOP
+
+
+# Establecer la distribución en la que se basa el sistema host.
+# 
+	if [[ $DISTRO = focal || $DISTRO = ulyana || $DISTRO = ulyssa || $DISTRO = uma ]]
+	then
+        	BASED=focal
+    	elif
+    	[[ $DISTRO = bionic || $DISTRO = tricia || $DISTRO = tina || $DISTRO = tessa || $DISTRO = tara ]]
+    	then
+        	BASED=bionic
+    	else
+        	echo ""
+		echo -e "${ROJO}Esta instalación no es compatible con tu sistema${NORMAL}" 
+		echo ""
+		echo -e "${ROJO}This install process is not compatible with your system${NORMAL}"
+		echo ""
+		sleep 4
+		exit
+    	fi
+
+	echo ""
+	echo System codename $DISTRO
+    	echo ""
+	echo System based on Ubuntu $BASED
+	echo ""
+	sleep 2
+
+# Este script funciona en Ubuntu 18.04, bionic y Ubuntu 20.04, así como las derivadas en linux Mint.
+#
+	echo ""	
+	echo -e "${ROJO}Solicitando contraseña del usuario con derechos de administrador${NORMAL}"
+	echo ""
+	echo -e "${ROJO}Asking password of the user with administrations rights${NORMAL}"
+	echo ""
+	sudo echo ""
+	
+# Borrando antiguos archivos de bellscheduler-dre
+#
+	echo ""	
+	echo -e "${ROJO}Borrando si existen archivos de anteriores instalaciones${NORMAL}"
+	echo ""
+	echo -e "${ROJO} Deleting if there are files from previous installations${NORMAL}"
+	echo ""
+	sudo chmod +x uninstall-bellscheduler-dre
+	sudo ./uninstall-bellscheduler-dre
+	
+
+	echo ""
+	echo -e "${AZUL}continúa el script...${NORMAL}"
+	echo ""
+	echo -e "${AZUL}the script continues...${NORMAL}"
+	echo ""
+	
+# Instalar docker
+#
+	echo ""
+	echo -e "${AZUL}Instalando Docker...${NORMAL}"
+	echo ""
+	echo -e "${AZUL}Instaling Docker...${NORMAL}"
+	echo ""
+	sudo apt update
+	sudo apt install -f
+	sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
+	sudo apt install -f
+	sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	#sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $DISTRO stable"
+	touch docker.list
+	echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $BASED stable" > docker.list
+	sudo mv docker.list /etc/apt/sources.list.d/docker.list
+	sudo apt-key fingerprint 0EBFCD88
+	sudo apt update
+	sudo apt install docker-ce docker-ce-cli containerd.io -y 
+	#sudo usermod -aG docker $USER
+	sudo rm /etc/apt/sources.list.d/docker.list
+	
+# Descarga la imagen docker
+#
+	echo ""
+	echo -e "${AZUL}Descargando la imagen docker que contiene los drivers de la pizarra...${NORMAL}"
+	echo ""
+	echo -e "${AZUL}Downloading the docker image with the board drivers...${NORMAL}"
+	echo ""
+	sudo docker pull aosucas499/bellscheduler-dre
+
+# Hacer la aplicación iniciable en cada reinicio y usable para cualquier usuario sin "sudo"
+#
+	echo ""
+	echo -e "${AZUL}Configurando la app para que arranque en cada inicio de sesión...${NORMAL}"
+	echo ""
+	echo -e "${AZUL}Settings up the app to boot at init...${NORMAL}"
+	echo ""
+	cd /home/$USER/bellscheduler-dre
+	sudo cp bellscheduler-dre /usr/bin
+    	sudo chmod +x /usr/bin/bellscheduler-dre
+    	sudo chown root:root zz-bellscheduler-dre
+    	sudo chmod 0440 zz-bellscheduler-dre
+    	sudo cp zz-bellscheduler-dre /etc/sudoers.d/ 
+    	sudo cp bellscheduler-dre.desktop /etc/xdg/autostart/
+    	sudo cp bellscheduler-dre.desktop /usr/share/applications/
+	
+# Añadir iconos originales al sistema
+#
+	sudo cp  icons/bell-scheduler.png /usr/share/icons
+	
+# Notificaciones al terminar
+#
+	echo ""
+	echo -e "${ROJO}Reinicie el equipo para que se ejecute la aplicación${NORMAL}"
+	echo ""
+	sudo notify-send "Reinicie el equipo para que se ejecute la aplicación"
+	
+# Borrar los repositorios de git y archivos de instalación
+#
+	cd ..
+	sudo rm -r bellscheduler-dre

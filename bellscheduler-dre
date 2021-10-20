@@ -1,0 +1,60 @@
+#! /bin/bash
+
+# Dejar al sistema docker que acceda al entorno gráfico
+xhost +local:root
+
+# Ejecutar el contenedor comprobando si ha sido creado o no
+
+#variable nombre contenedor
+container_name=bellscheduler
+
+#variable nombre imagen
+image_name=aosucas499/bellscheduler-dre
+
+#variable carpeta configuración para compartir con el contenedor
+STORAGE_FOLDER=/home/$SUDO_USER/BELLSCHEDULER
+CONFIG_FOLDER=~/home/$SUDO_USER/BELLSCHEDULER-config
+
+rm -r $STORAGE_FOLDER
+
+if [ -d "$STORAGE_FOLDER" ]; then
+    echo "Carpeta $STORAGE_FOLDER existe"
+else
+    echo "Creando carpeta $STORAGE_FOLDER"
+    mkdir $STORAGE_FOLDER
+    chown -R $SUDO_USER:$SUDO_USER $STORAGE_FOLDER
+fi
+
+
+#if [ -d "$CONFIG_FOLDER" ]; then
+#    echo "Carpeta $CONFIG_FOLDER existe"
+#else
+#    echo "Creando carpeta $CONFIG_FOLDER"
+#    mkdir $CONFIG_FOLDER
+#fi
+
+docker stop $container_name && docker rm $container_name 
+
+# Lanzamos el contenedor creándolo si no existe.
+
+sleep 5
+if docker ps -a --format '{{.Names}}' | grep -Eq "^${container_name}\$"; then
+   	docker start ${container_name}
+
+else
+
+	docker run -d --privileged --net=host -e DISPLAY="$DISPLAY" --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v /dev:/dev -e USER=$SUDO_USER -e GROUP=$SUDO_USER -e UID=$SUDO_UID -e GID=$SUDO_GID --user=$(id -u):$(id -g) --volume="$STORAGE_FOLDER:/root/bellscheduler:rw" --workdir=/home/$SUDO_USER --name ${container_name} ${image_name}
+
+fi
+
+
+#docker run -d --privileged --net=host --user=$(id -u $USER):$(id -g $USER) -e DISPLAY="$DISPLAY" --env DBUS_SESSION_BUS_ADDRESS="$DBUS_SESSION_BUS_ADDRESS" --volume /run/user/$UID/bus:/run/dbus/system_bus_socket --volume="$STORAGE_FOLDER:/home/$USER:rw" --volume="/etc/group:/etc/group:ro" --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" --volume="/etc/sudoers.d:/etc/sudoers.d:ro" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v /dev:/dev --name ${container_name} ${image_name} 
+
+#docker run -d --privileged --net=host -e DISPLAY="$DISPLAY" --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v /dev:/dev --name ${container_name} ${image_name} 
+
+
+#--env DBUS_SESSION_BUS_ADDRESS="$DBUS_SESSION_BUS_ADDRESS" --volume /run/user/$UID/bus:/run/user/$UID/bus --volume="/run/dbus/sytem_bus_socket:/run/dbus/system_bus_socket"
+
+
+#--volume="$STORAGE_FOLDER:/etc/xdg:rw"
+#--volume="$CONFIG_FOLDER:/etc/xdg:ro"

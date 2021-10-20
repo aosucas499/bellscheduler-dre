@@ -1,0 +1,29 @@
+#! /bin/bash
+
+# Borrado de archivos anteriores de bellscheduler-dre
+#
+echo ""
+echo -e "${ROJO}Borrando antiguos archivos de starboardre${NORMAL}"
+echo ""
+echo -e "${ROJO}Deleting old files from starboardre${NORMAL}"
+echo ""
+sleep 3
+##
+#
+sudo rm /etc/xdg/autostart/bellscheduler-dre.desktop
+
+sudo rm /usr/share/applications/bellscheduler-dre.desktop
+
+sudo rm /usr/bin/bellscheduler-dre
+
+sudo rm /etc/sudoers.d/zz-bellscheduler-dre
+
+sudo docker stop bellscheduler
+
+sudo docker rm bellscheduler
+
+sudo docker rmi aosucas499/bellscheduler-dre
+
+#sudo delgroup docker
+
+#sudo apt purge --remove docker-ce docker-ce-cli containerd.io -y
