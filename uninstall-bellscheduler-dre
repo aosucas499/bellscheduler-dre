@@ -3,9 +3,9 @@
 # Borrado de archivos anteriores de bellscheduler-dre
 #
 echo ""
-echo -e "${ROJO}Borrando antiguos archivos de starboardre${NORMAL}"
+echo -e "${ROJO}Borrando antiguos archivos de bellscheduler-dre${NORMAL}"
 echo ""
-echo -e "${ROJO}Deleting old files from starboardre${NORMAL}"
+echo -e "${ROJO}Deleting old files from bellscheduler-dre${NORMAL}"
 echo ""
 sleep 3
 ##

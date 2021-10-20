@@ -87,9 +87,9 @@ DESKTOP=$XDG_CURRENT_DESKTOP
 # Descarga la imagen docker
 #
 	echo ""
-	echo -e "${AZUL}Descargando la imagen docker que contiene los drivers de la pizarra...${NORMAL}"
+	echo -e "${AZUL}Descargando la imagen docker que contiene la app...${NORMAL}"
 	echo ""
-	echo -e "${AZUL}Downloading the docker image with the board drivers...${NORMAL}"
+	echo -e "${AZUL}Downloading the docker image with the app...${NORMAL}"
 	echo ""
 	sudo docker pull aosucas499/bellscheduler-dre
 
