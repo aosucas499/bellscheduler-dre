@@ -1,8 +1,8 @@
-# starboardre
+# Bell Scheduler - dre
 
-![]()
+![](http://wiki.lliurex.net/tiki-download_file.php?fileId=2481&display)
 
-An application for linux, to run drivers/software for old digital boards "Hitachi StarBoard" in new Ubuntu based distros. (Bionic and focal based systems). It downloads a docker image, installs dependencies and executes the drivers/software. The aplication run at every startup.
+Aplicación dockerizada Bell-Scheduler proveniente del sistema [Lliurex](https://portal.edu.gva.es/lliurex/va/descarregues/).
 
 + Ubuntu Focal and Bionic
 + Linux Mint based on Ubuntu Focal and Bionic 
