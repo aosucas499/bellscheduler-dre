@@ -36,6 +36,7 @@ RUN sudo apt-get install -y bell-scheduler
 # Ejecución app
 
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
 
