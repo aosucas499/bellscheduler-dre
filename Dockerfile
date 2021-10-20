@@ -31,7 +31,9 @@ RUN echo deb [trusted=yes] $REPO xenial main universe multiverse > /etc/apt/sour
 #RUN dpkg -i lliurex-keyring_0.1.2_all.deb && rm *.deb
 
 # Instalar bell-scheduler
-RUN sudo apt-get install -y python3-gi python3-gi-cairo gir1.2-gtk-3.0 bell-scheduler
+RUN sudo apt-get install -y lliurex-artwork-icons lliurex-artwork-icons-neu python3-gi python3-gi-cairo gir1.2-gtk-3.0 bell-scheduler
+
+RUN sudo apt-get install -y iputils-ping net-tools
 
 # Ejecución app
 
