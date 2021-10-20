@@ -30,6 +30,6 @@ fi
 
 export LANG=es_ES.UTF-8
 
-/usr/bin/bell-scheduler
+bell-scheduler
 chown -R $USER:$GROUP /home/${USER} || true
 
