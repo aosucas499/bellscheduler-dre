@@ -17,7 +17,7 @@ ENV QT_X11_NO_MITSHM=1
 # Paquetes previos
 RUN echo exit 0 > /usr/sbin/policy-rc.d && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p 
 RUN apt-get update && apt-get install nano wget -y 
-RUN apt-get update && apt-get install libnotify-bin dbus dbus-x11 pulseaudio gstreamer0.10 alsa-utils libusb-1.0 python screen sudo -y && apt-get clean
+RUN apt-get update && apt-get install libnotify-bin dbus dbus-x11 pulseaudio gstreamer0.10 alsa-utils libusb-1.0 screen sudo -y && apt-get clean
 RUN install -d -m755 -o pulse -g pulse /run/pulse
 RUN mkdir /var/run/dbus && chown messagebus:messagebus /var/run/dbus/
 RUN apt-get install -y pulseaudio
@@ -31,7 +31,7 @@ RUN echo deb [trusted=yes] $REPO xenial main universe multiverse > /etc/apt/sour
 #RUN dpkg -i lliurex-keyring_0.1.2_all.deb && rm *.deb
 
 # Instalar bell-scheduler
-RUN sudo apt-get install -y bell-scheduler
+RUN sudo apt-get install -y python3-gi python3-gi-cairo gir1.2-gtk-3.0 bell-scheduler
 
 # Ejecución app
 
