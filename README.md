@@ -1,5 +1,8 @@
 # Bell Scheduler - dre
 
+
+Aún en pruebas - TESTING
+
 Aplicación dockerizada Bell-Scheduler proveniente del sistema [Lliurex](https://portal.edu.gva.es/lliurex/va/descarregues/).
 
 + Ubuntu Focal and Bionic
@@ -24,14 +27,6 @@ Aplicación dockerizada Bell-Scheduler proveniente del sistema [Lliurex](https:/
     
     sudo reboot (Reboot the system - Reiniciar el sistema)
 
-Si este proyecto te ayuda, puedes invitarme a un café.
-
-
-If this project helps you, you can give me a cup of coffee .
-
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate?business=FUMT27MVTRTHJ&no_recurring=0&item_name=Proyectos+TIC+Andaluc%C3%ADa&currency_code=EUR)
-)
 
 
 <b>Thanks to</b> [Lliurex Team](https://portal.edu.gva.es/lliurex/va/) 
