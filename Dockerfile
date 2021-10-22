@@ -4,7 +4,7 @@
  
 
 # Comando para crear imagen docker, usar comando en la misma carpeta de este archivo
-# sudo docker build -t aosucas499/bellscheduler-dre .
+# sudo docker build -t aosucas499/bellscheduler-dre:xenial .
 
 # Uso de la imagen y variables
 
@@ -15,9 +15,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV QT_X11_NO_MITSHM=1
 
 # Paquetes previos
-RUN echo exit 0 > /usr/sbin/policy-rc.d && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p 
-RUN apt-get update && apt-get install nano wget -y 
-RUN apt-get update && apt-get install libnotify-bin dbus dbus-x11 pulseaudio gstreamer0.10 alsa-utils libusb-1.0 screen sudo -y && apt-get clean
+RUN mkdir /etc/cron.d  && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p
+RUN apt-get update && apt-get install nano wget cron -y  
+RUN apt-get update && apt-get install network-manager iputils-ping net-tools libnotify-bin dbus dbus-x11 pulseaudio gstreamer0.10 alsa-utils libusb-1.0 screen sudo -y && apt-get clean
 RUN install -d -m755 -o pulse -g pulse /run/pulse
 RUN mkdir /var/run/dbus && chown messagebus:messagebus /var/run/dbus/
 RUN apt-get install -y pulseaudio
@@ -31,9 +31,7 @@ RUN echo deb [trusted=yes] $REPO xenial main universe multiverse > /etc/apt/sour
 #RUN dpkg -i lliurex-keyring_0.1.2_all.deb && rm *.deb
 
 # Instalar bell-scheduler
-RUN sudo apt-get install -y lliurex-artwork-icons lliurex-artwork-icons-neu python3-gi python3-gi-cairo gir1.2-gtk-3.0 bell-scheduler
-
-RUN sudo apt-get install -y iputils-ping net-tools
+RUN sudo apt-get install -y lliurex-artwork-icons lliurex-artwork-icons-neu python3-netifaces python3-gi python3-gi-cairo gir1.2-appindicator3-0.1 gir1.2-gtk-3.0 gir1.2-notify taskscheduler bell-scheduler
 
 # Ejecución app
 

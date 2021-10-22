@@ -30,6 +30,7 @@ fi
 
 export LANG=es_ES.UTF-8
 
-bell-scheduler
-chown -R $USER:$GROUP /home/${USER} || true
+#screen -d -m bash /usr/sbin/n4d-server
+/usr/sbin/bell-scheduler
+#chown -R $USER:$GROUP /home/${USER} || true
 
