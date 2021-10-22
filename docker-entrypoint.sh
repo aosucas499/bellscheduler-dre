@@ -24,13 +24,17 @@ done
 addgroup --quiet --gid ${GID} ${GROUP} || true
 adduser  --quiet --home /home/${USER} --shell /bin/false --gecos "UserAccount" --uid ${UID} --ingroup ${GROUP} --disabled-password --disabled-login ${USER} || true
 
+
 if [ ! -L '/root/bellscheduler' ]; then
     ln -s /home/${USER} /root/bellscheduler || true
 fi
 
 export LANG=es_ES.UTF-8
 
-#screen -d -m bash /usr/sbin/n4d-server
+usermod -a -G adm admin
+usermod -a -G root admin
+
+#screen -d -m bash /usr/sbin/n4d-server 
 /usr/sbin/bell-scheduler
 #chown -R $USER:$GROUP /home/${USER} || true
 
