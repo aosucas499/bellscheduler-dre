@@ -9,6 +9,35 @@ AZUL="\033[1;34m"
 DISTRO=$(lsb_release -cs)
 DESKTOP=$XDG_CURRENT_DESKTOP
 
+# Copia el script en el sistema que comprueba que existe la extensión gnome appindicator 
+# En caso contrario la descarga y la instala en el usuario local
+
+if [[ $DESKTOP = ubuntu:GNOME || $DESKTOP = ubuntu || $DESKTOP = GNOME || $DESKTOP = UBUNTU || $DESKTOP = gnome ]]
+	then
+		echo ""
+        	echo -e "${ROJO}Escritorio basado en GNOME${NORMAL}"
+		echo ""
+        	echo -e "${ROJO}Desktop based on GNOME${NORMAL}"
+		echo ""
+		echo -e "${ROJO}Instalando extensión de GNOME appindicatorsupportrgcjonas${NORMAL}"
+		echo ""
+        	echo -e "${ROJO}Installing appindicatorsupportrgcjonas GNOME EXTENSION${NORMAL}"
+		echo ""
+		sleep 3
+		sudo cp check-appindicator-gnome-extension /usr/bin
+    		sudo chmod +x /usr/bin/check-appindicator-gnome-extension 
+		sudo cp check-appindicator-gnome-extension.desktop /etc/xdg/autostart/
+    	
+    	else
+        	echo ""
+        	echo -e "${ROJO}Escritorio no basado en GNOME${NORMAL}"
+		echo ""
+        	echo -e "${ROJO}Desktop not-based on GNOME${NORMAL}"
+		echo ""
+		echo ""
+		echo -e "${AZUL}Desktop environment $XDG_CURRENT_DESKTOP${NORMAL}"
+		sleep 4
+    	fi
 
 # Establecer la distribución en la que se basa el sistema host.
 # 
@@ -91,7 +120,7 @@ DESKTOP=$XDG_CURRENT_DESKTOP
 	echo ""
 	echo -e "${AZUL}Downloading the docker image with the app...${NORMAL}"
 	echo ""
-	sudo docker pull aosucas499/bellscheduler-dre
+	sudo docker pull aosucas499/bellscheduler-dre:bionic
 
 # Hacer la aplicación iniciable en cada reinicio y usable para cualquier usuario sin "sudo"
 #
@@ -112,6 +141,11 @@ DESKTOP=$XDG_CURRENT_DESKTOP
 # Añadir iconos originales al sistema
 #
 	sudo cp  icons/bell-scheduler.png /usr/share/icons
+
+# Crear grupo necesario para acceder a la aplicación bell-scheduler	
+# y se añade el usuario al grupo 
+	sudo groupadd teachers
+	sudo usermod -a -G teachers $USER
 	
 # Notificaciones al terminar
 #
