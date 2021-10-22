@@ -31,10 +31,22 @@ RUN echo deb [trusted=yes] $REPO bionic main universe multiverse > /etc/apt/sour
 #RUN dpkg -i lliurex-keyring_0.1.2_all.deb && rm *.deb
 
 # Instalar bell-scheduler
-RUN sudo apt-get install -y python3-netifaces python3-gi python3-gi-cairo gir1.2-appindicator3-0.1 gir1.2-gtk-3.0 gir1.2-notify taskscheduler bell-scheduler
+RUN sudo apt-get install -y python3-netifaces python3-gi python3-gi-cairo gir1.2-appindicator3-0.1 gir1.2-gtk-3.0 gir1.2-notify taskscheduler bell-scheduler 
+
+RUN apt-get install lliurex-desktop-icon-theme -y
+
+# Servidor hora
+ 
+RUN export DEBCONF_NONINTERACTIVE_SEEN=true; 
+RUN echo 'tzdata tzdata/Areas select Europe' | debconf-set-selections; 
+RUN echo 'tzdata tzdata/Zones/Etc select Madrid' | debconf-set-selections; 
+    
+
+RUN apt-get install ntp -y && dpkg-reconfigure tzdata
+
+#RUN groupadd admins
 
 # Ejecución app
-
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
@@ -42,5 +54,5 @@ ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
 
 
-#lliurex-artwork-icons lliurex-artwork-icons-neu
+#
 
