@@ -24,6 +24,8 @@ sudo docker rm bellscheduler
 
 sudo docker rmi aosucas499/bellscheduler-dre
 
+sudo docker rmi aosucas499/bellscheduler-dre:bionic
+
 #sudo delgroup docker
 
 #sudo apt purge --remove docker-ce docker-ce-cli containerd.io -y
