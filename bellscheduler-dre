@@ -50,7 +50,7 @@ else
 
 
 docker run -it \
- --user=$(id -u $USER):$(id -g $USER) \
+ --user=$(id -u $SUDO_USER):$(id -g $SUDO_USER) \
  -e PULSE_SERVER=unix:{$XDG_RUNTIME_DIR}/pulse/native \
  -v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native:Z \
  -v $STORAGE_FOLDER:/home/$USER \
