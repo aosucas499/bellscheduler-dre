@@ -33,7 +33,11 @@ fi
 #    mkdir $CONFIG_FOLDER
 #fi
 
-docker stop $container_name && docker rm $container_name 
+docker stop $container_name && docker rm $container_name
+
+wget https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3
+mv *.mp3 $STORAGE_FOLDER
+chown -R $SUDO_USER:$SUDO_USER $STORAGE_FOLDER
 
 # Lanzamos el contenedor creándolo si no existe.
 
@@ -43,19 +47,28 @@ if docker ps -a --format '{{.Names}}' | grep -Eq "^${container_name}\$"; then
 
 else
 
-	#docker run -it --privileged --net=host -e DISPLAY="$DISPLAY" --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v /dev:/dev -e USER=$SUDO_USER -e GROUP=$SUDO_USER -e UID=$SUDO_UID -e GID=$SUDO_GID --user=$(id -u):$(id -g) --volume="$STORAGE_FOLDER:/home/admin/bellscheduler:rw" --workdir=/home/$SUDO_USER --name ${container_name} ${image_name} bash
 
 
+docker run -it \
+ --user=$(id -u $USER):$(id -g $USER) \
+ -e PULSE_SERVER=unix:{$XDG_RUNTIME_DIR}/pulse/native \
+ -v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native:Z \
+ -v $STORAGE_FOLDER:/home/$USER \
+ --net=host -v /tmp/.X11-unix:/tmp/.X11-unix \
+ --device /dev/snd \
+ -e DISPLAY=unix$DISPLAY \
+ --volume="/etc/group:/etc/group:ro" \
+ --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" \
+ --name ${container_name} ${image_name} 
 
-
-docker run -d --net=host --user=$(id -u $USER):$(id -g $USER) -e DISPLAY="$DISPLAY" --env DBUS_SESSION_BUS_ADDRESS="$DBUS_SESSION_BUS_ADDRESS" --volume /run/user/$UID/bus:/run/dbus/system_bus_socket --volume="$STORAGE_FOLDER:/home/root:rw" --volume="/etc/group:/etc/group:ro" --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v /dev:/dev --name ${container_name} ${image_name} 
-
-#docker run -d --privileged --net=host -e DISPLAY="$DISPLAY" --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v /dev:/dev --name ${container_name} ${image_name} 
+#docker run -it --user=$(id -u $USER):$(id -g $USER) \
+#--volume=$XDG_RUNTIME_DIR/pulse:$XDG_RUNTIME_DIR/pulse \
+# -e DISPLAY="$DISPLAY" --env DBUS_SESSION_BUS_ADDRESS="$DBUS_SESSION_BUS_ADDRESS" \
+# --volume="$STORAGE_FOLDER:/home/root:rw" --volume="/etc/group:/etc/group:ro" \
+# --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" \
+# --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v /dev/snd:/dev/snd -v /etc/machine-id:/etc/machine-id -v /dev/shm:/dev/shm -e PULSE_SERVER=unix:$XDG_RUNTIME_DIR/pulse/native \
+#--name  ${container_name} ${image_name} 
 
 fi
 
-#--env DBUS_SESSION_BUS_ADDRESS="$DBUS_SESSION_BUS_ADDRESS" --volume /run/user/$UID/bus:/run/user/$UID/bus --volume="/run/dbus/sytem_bus_socket:/run/dbus/system_bus_socket"
 
-
-#--volume="$STORAGE_FOLDER:/etc/xdg:rw"
-#--volume="$CONFIG_FOLDER:/etc/xdg:ro"
