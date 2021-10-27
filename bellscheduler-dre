@@ -33,11 +33,7 @@ fi
 #    mkdir $CONFIG_FOLDER
 #fi
 
-docker stop $container_name && docker rm $container_name
-
-wget https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3
-mv *.mp3 $STORAGE_FOLDER
-chown -R $SUDO_USER:$SUDO_USER $STORAGE_FOLDER
+docker stop $container_name && docker rm $container_name 
 
 # Lanzamos el contenedor creándolo si no existe.
 
@@ -49,28 +45,29 @@ else
 
 
 
-docker run -it \
- -e PULSE_SERVER=unix:{$XDG_RUNTIME_DIR}/pulse/native \
- -v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native \
- -v /etc/machine-id:/etc/machine-id -v /dev/shm:/dev/shm \
+docker run -t -i --rm --privileged \
  --net=host -v /tmp/.X11-unix:/tmp/.X11-unix \
- --device /dev/snd \
- -e DISPLAY=unix$DISPLAY \
- --user=$(id -u $SUDO_USER):$(id -g $SUDO_USER) \
+ -v /dev:/dev \
+ --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" \
+ -e DISPLAY="$DISPLAY" \
+ -v $XSOCK:$XSOCK:rw \
+    -v $XAUTH:$XAUTH:rw \
+    -e XAUTHORITY=$XAUTH \
+ -v /home/admin/file_example_MP3_5MG.mp3:/root/file_example_MP3_5MG.mp3 \
+ --workdir=/root \
  --volume="/etc/group:/etc/group:ro" \
  --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" \
- -v /home/$SUDO_USER:/root \
- --workdir=/root \
  --name ${container_name} ${image_name} 
 
-#docker run -it --user=$(id -u $USER):$(id -g $USER) \
-#--volume=$XDG_RUNTIME_DIR/pulse:$XDG_RUNTIME_DIR/pulse \
-# -e DISPLAY="$DISPLAY" --env DBUS_SESSION_BUS_ADDRESS="$DBUS_SESSION_BUS_ADDRESS" \
-# --volume="$STORAGE_FOLDER:/home/root:rw" --volume="/etc/group:/etc/group:ro" \
-# --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" \
-# --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v /dev/snd:/dev/snd -v /etc/machine-id:/etc/machine-id -v /dev/shm:/dev/shm -e PULSE_SERVER=unix:$XDG_RUNTIME_DIR/pulse/native \
-#--name  ${container_name} ${image_name} 
-#  -v /home/admin/.config/pulse/cookie:/root/.config/pulse/cookie \
 fi
 
-
+#-v /home/admin/.config/pulse/cookie:/home/usuario/.config/pulse/cookie \
+# --group-add $(getent group audio | cut -d: -f3) \
+#-e PULSE_SERVER=unix:{$XDG_RUNTIME_DIR}/pulse/native \
+# -v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native:Z \
+ #--volume=/run/user/1001:/run/user/1001/pulse \
+ #-v /etc/pulse:/etc/pulse \
+ # -v /home/admin:/home/admin \
+ #--user=$(id -u $SUDO_USER):$(id -g $SUDO_USER) \
+ # -e NO_AT_BRIDGE=1 \
+ # --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" \
