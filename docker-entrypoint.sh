@@ -11,17 +11,11 @@ for s in $SERVICES; do
     screen -d -m bash -x -c $s
 done
 
-#addgroup --quiet --gid ${GID} ${GROUP} || true
-#adduser  --quiet --home /home/${USER} --shell /bin/false --gecos "UserAccount" --uid ${UID} --ingroup ${GROUP} --disabled-password --disabled-login ${USER} || true
-
 #export LANG=es_ES.UTF-8
 
-screen -d -m bash -c /usr/sbin/n4d-server 
+sudo screen -d -m bash -c /usr/sbin/n4d-server 
 
-#mkdir -p /home/admin
-#usermod -a -G sudo admin
-#usermod -a -G admins admin
-#sudo usermod -a -G teachers admin
+sudo cron 
 
 /usr/sbin/bell-scheduler
 
