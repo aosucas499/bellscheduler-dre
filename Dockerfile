@@ -13,7 +13,6 @@ FROM i386/ubuntu:xenial
 MAINTAINER Andrés Osuna <aosucas499gmail.com>
 ENV DEBIAN_FRONTEND=noninteractive
 ENV QT_X11_NO_MITSHM=1
-ENV UDEV=on
 
 # Paquetes previos
 RUN mkdir /etc/cron.d  && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p
@@ -50,7 +49,7 @@ RUN apt-get install -y libcanberra-gtk-module libcanberra-gtk3-module
 
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
-ENTRYPOINT [ /docker-entrypoint.sh ]
+ENTRYPOINT [ "/bin/bash", "-c", "/docker-entrypoint.sh" ]
 
 
 

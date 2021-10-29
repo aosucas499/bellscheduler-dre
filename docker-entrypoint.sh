@@ -20,11 +20,3 @@ touch crontab && crontab -u root crontab
 screen -d -m /usr/bin/bell-scheduler-indicator
 
 /usr/sbin/bell-scheduler
-
-
-
-#chown -R $USER:$GROUP /home/${USER} || true
-
-
-
-
