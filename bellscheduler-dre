@@ -9,7 +9,7 @@ xhost +local:root
 container_name=bellscheduler
 
 #variable nombre imagen
-image_name=aosucas499/bellscheduler-dre:bionic
+image_name=aosucas499/bellscheduler-dre:xenial
 
 #variable carpeta configuración para compartir con el contenedor
 STORAGE_FOLDER=/home/$SUDO_USER/BELLSCHEDULER
@@ -36,7 +36,7 @@ fi
 docker stop $container_name && docker rm $container_name 
 
 # Lanzamos el contenedor creándolo si no existe.
-
+ 
 sleep 5
 if docker ps -a --format '{{.Names}}' | grep -Eq "^${container_name}\$"; then
    	docker start ${container_name}
@@ -45,14 +45,10 @@ else
 
 
 
-docker run -t -i --rm --privileged \
+docker run -d --privileged \
  --net=host -v /tmp/.X11-unix:/tmp/.X11-unix \
- -v /dev:/dev \
  --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" \
  -e DISPLAY="$DISPLAY" \
- -v $XSOCK:$XSOCK:rw \
-    -v $XAUTH:$XAUTH:rw \
-    -e XAUTHORITY=$XAUTH \
  -v /home/admin/file_example_MP3_5MG.mp3:/root/file_example_MP3_5MG.mp3 \
  --workdir=/root \
  --volume="/etc/group:/etc/group:ro" \
@@ -61,6 +57,7 @@ docker run -t -i --rm --privileged \
 
 fi
 
+# --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" \
 #-v /home/admin/.config/pulse/cookie:/home/usuario/.config/pulse/cookie \
 # --group-add $(getent group audio | cut -d: -f3) \
 #-e PULSE_SERVER=unix:{$XDG_RUNTIME_DIR}/pulse/native \
