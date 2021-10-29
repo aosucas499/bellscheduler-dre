@@ -120,7 +120,7 @@ if [[ $DESKTOP = ubuntu:GNOME || $DESKTOP = ubuntu || $DESKTOP = GNOME || $DESKT
 	echo ""
 	echo -e "${AZUL}Downloading the docker image with the app...${NORMAL}"
 	echo ""
-	sudo docker pull aosucas499/bellscheduler-dre:bionic
+	sudo docker pull aosucas499/bellscheduler-dre:xenial
 
 # Hacer la aplicación iniciable en cada reinicio y usable para cualquier usuario sin "sudo"
 #
