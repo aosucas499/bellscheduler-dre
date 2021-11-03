@@ -9,13 +9,13 @@ for s in $SERVICES; do
     screen -d -m bash -x -c $s
 done
 
-#export LANG=es_ES.UTF-8
-
-screen -d -m bash -c /usr/sbin/n4d-server 
+#export LANG=es_ES.UTF-8 
 
 touch crontab && crontab -u root crontab
 
 /etc/init.d/cron start
+
+screen -d -m bash -c /usr/sbin/n4d-server
 
 screen -d -m /usr/bin/bell-scheduler-indicator
 
