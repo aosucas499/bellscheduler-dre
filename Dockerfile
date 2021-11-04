@@ -16,17 +16,15 @@ ENV QT_X11_NO_MITSHM=1
 
 # Paquetes previos
 RUN mkdir /etc/cron.d  && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p
-RUN apt-get update && apt-get install nano wget cron -y  
+RUN apt-get update && apt-get install nano wget cron rsyslog -y  
 RUN apt-get update && apt-get install network-manager iputils-ping net-tools libnotify-bin dbus dbus-x11 libusb-1.0 screen sudo pulseaudio pulseaudio-utils gstreamer0.10 alsa-base alsa-utils -y && apt-get clean
 RUN install -d -m755 -o pulse -g pulse /run/pulse
 RUN mkdir /var/run/dbus && chown messagebus:messagebus /var/run/dbus/
 
 # Servidor hora
- 
-RUN export DEBCONF_NONINTERACTIVE_SEEN=true; 
-RUN echo 'tzdata tzdata/Areas select Europe' | debconf-set-selections; 
-RUN echo 'tzdata tzdata/Zones/Etc select Madrid' | debconf-set-selections; 
-RUN apt-get install ntp tzdata -y && dpkg-reconfigure tzdata
+RUN apt-get install ntp tzdata -y 
+RUN ln -fs /usr/share/zoneinfo/Europe/Madrid /etc/localtime
+RUN dpkg-reconfigure --frontend noninteractive tzdata
 
 # Repo Lliurex 16
 ARG REPO=http://lliurex.net/xenial
@@ -44,6 +42,13 @@ RUN cp -r /usr/share/icons/breeze /usr/share/icons/EducaAndOSIcons
 RUN sudo apt-get install -y lliurex-artwork-icons lliurex-artwork-icons-neu python3-netifaces python3-gi python3-gi-cairo gir1.2-appindicator3-0.1 gir1.2-gtk-3.0 gir1.2-notify  python-psutil taskscheduler bell-scheduler
 
 RUN apt-get install -y libcanberra-gtk-module libcanberra-gtk3-module 
+
+#rsyslog
+#RUN sed -i "s/#cron/cron /g" /etc/rsyslog.d/50-default.conf
+#RUN touch /var/log/cron.log
+#RUN chown syslog:adm /var/log/cron.log
+#RUN touch /etc/cron.d/test
+#RUN echo "* * * * * root /usr/bin/ffplay /root/file_example_MP3_5MG.mp3" > /etc/cron.d/test
 
 # Ejecución app
 

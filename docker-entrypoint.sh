@@ -11,9 +11,15 @@ done
 
 #export LANG=es_ES.UTF-8 
 
-touch crontab && crontab -u root crontab
+service cron start
 
-/etc/init.d/cron start
+service rsyslog start 
+
+systemctl start cron 
+
+systemctl start rsyslog
+
+#chown syslog:adm /var/log/cron.log
 
 screen -d -m bash -c /usr/sbin/n4d-server
 
