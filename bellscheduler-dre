@@ -43,8 +43,6 @@ if docker ps -a --format '{{.Names}}' | grep -Eq "^${container_name}\$"; then
 
 else
 
-
-
 docker run -d --privileged \
  --net=host -v /tmp/.X11-unix:/tmp/.X11-unix \
  --device /dev/snd \
@@ -54,6 +52,8 @@ docker run -d --privileged \
  -e PULSE_SERVER=unix:/run/user/1001/pulse/native \
  -v /home/admin/.config/pulse/cookie:/root/.config/pulse/cookie \
  -v /home/admin/file_example_MP3_5MG.mp3:/root/file_example_MP3_5MG.mp3 \
+ -v /usr/local/share/bellScheduler/:/usr/local/share/bellScheduler/:rw \
+ -v /etc/cron.d/:/etc/cron.d/:rw \
  --workdir=/root \
  --volume="/etc/group:/etc/group:ro" \
  --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" \
