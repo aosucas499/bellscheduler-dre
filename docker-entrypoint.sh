@@ -1,14 +1,4 @@
 #!/bin/bash
-set -e
-set -x
-if [ -z "$USER" -o -z "$UID" ]; then
-    echo "USER NOT DEFINED"
-    exit 1
-fi
-if [ -z "$GROUP" -o -z "$GID" ]; then
-    echo "GROUP NOT DEFINED"
-    exit 1
-fi
 
 SERVICES="/bin/dbus-uuidgen --ensure;/bin/dbus-daemon --system --fork;/usr/bin/pulseaudio --system --daemonize --high-priority --log-target=syslog --disallow-exit --disallow-module-loading=1"
 
@@ -21,20 +11,20 @@ for s in $SERVICES; do
     screen -d -m bash -x -c $s
 done
 
-addgroup --quiet --gid ${GID} ${GROUP} || true
-adduser  --quiet --home /home/${USER} --shell /bin/false --gecos "UserAccount" --uid ${UID} --ingroup ${GROUP} --disabled-password --disabled-login ${USER} || true
+#export LANG=es_ES.UTF-8
 
+/etc/init.d/cron start
 
-if [ ! -L '/root/bellscheduler' ]; then
-    ln -s /home/${USER} /root/bellscheduler || true
-fi
+service cron start
 
-export LANG=es_ES.UTF-8
+/etc/init.d/rsyslog start
 
-usermod -a -G adm admin
-usermod -a -G root admin
+service rsyslog start
 
-#screen -d -m bash /usr/sbin/n4d-server 
+screen -d -m bash -c /usr/sbin/n4d-server
+
+screen -d -m /usr/bin/bell-scheduler-indicator
+
 /usr/sbin/bell-scheduler
-#chown -R $USER:$GROUP /home/${USER} || true
+
 
