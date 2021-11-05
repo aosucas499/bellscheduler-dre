@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # Dejar al sistema docker que acceda al entorno gráfico
-xhost +local:root
+#xhost +local:root
 
 # Ejecutar el contenedor comprobando si ha sido creado o no
 
@@ -35,6 +35,9 @@ fi
 
 docker stop $container_name && docker rm $container_name 
 
+#Descargamos mp3 de prueba en la carpeta compartida
+wget https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3 -O /home/$SUDO_USER/BELLSCHEDULER/file_example_MP3_5MG.mp3
+
 # Lanzamos el contenedor creándolo si no existe.
  
 sleep 5
@@ -47,25 +50,28 @@ docker run -d --privileged \
  --net=host -v /tmp/.X11-unix:/tmp/.X11-unix \
  --device /dev/snd \
  -e DISPLAY="$DISPLAY" \
- --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" \
- --volume=/run/user/1001/pulse/native:/run/user/1001/pulse/native \
- -e PULSE_SERVER=unix:/run/user/1001/pulse/native \
- -v /home/admin/.config/pulse/cookie:/root/.config/pulse/cookie \
- -v /home/admin/file_example_MP3_5MG.mp3:/root/file_example_MP3_5MG.mp3 \
- -v /usr/local/share/bellScheduler/:/usr/local/share/bellScheduler/:rw \
- -v /etc/cron.d/:/etc/cron.d/:rw \
- --workdir=/root \
+ -e XAUTHORITY=/run/user/$SUDO_UID/gdm/Xauthority \
+ -v /run/user/$SUDO_UID:/run/user/$SUDO_UID \
+ --env DBUS_SESSION_BUS_ADDRESS="/run/user/$SUDO_UID/bus" \
+ -e PULSE_SERVER=unix:/run/user/$SUDO_UID/pulse/native \
+ -v /home/$SUDO_USER/.config/pulse/cookie:/root/.config/pulse/cookie \
+ -v $STORAGE_FOLDER:/usr/local/share/bellScheduler/:rw \
+ --workdir=/usr/local/share/bellScheduler/ \
  --volume="/etc/group:/etc/group:ro" \
  --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" \
  --name ${container_name} ${image_name} 
 
 fi
 
+#--volume="/run/user/$SUDO_UID/bus:/run/user/$SUDO_UID/bus" \
+#-v /run/user/$SUDO_UID/gdm/Xauthority:/run/user/$SUDO_UID/gdm/Xauthority \
+#-v /usr/local/share/bellScheduler/:/usr/local/share/bellScheduler/:rw \
+ #-v /etc/cron.d/:/etc/cron.d/:rw \
 # --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" \
 # -v /home/admin/.config/pulse/cookie:/root/.config/pulse/cookie \
 # --group-add $(getent group audio | cut -d: -f3) \
 #-e PULSE_SERVER=unix:{$XDG_RUNTIME_DIR}/pulse/native \
-# -v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native:Z \
+#  --volume=/run/user/$SUDO_UID/pulse/native:/run/user/$SUDO_UID/pulse/native \
  #--volume=/run/user/1001:/run/user/1001/pulse \
  #-v /etc/pulse:/etc/pulse \
  # -v /home/admin:/home/admin \
