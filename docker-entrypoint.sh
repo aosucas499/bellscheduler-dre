@@ -11,15 +11,9 @@ done
 
 #export LANG=es_ES.UTF-8 
 
-service cron start
-
-service rsyslog start 
+service cron start 
 
 systemctl start cron 
-
-systemctl start rsyslog
-
-#chown syslog:adm /var/log/cron.log
 
 screen -d -m bash -c /usr/sbin/n4d-server
 

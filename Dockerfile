@@ -16,7 +16,7 @@ ENV QT_X11_NO_MITSHM=1
 
 # Paquetes previos
 RUN mkdir /etc/cron.d  && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p
-RUN apt-get update && apt-get install nano wget cron rsyslog -y  
+RUN apt-get update && apt-get install nano wget cron rsyslog postfix -y  
 RUN apt-get update && apt-get install network-manager iputils-ping net-tools libnotify-bin dbus dbus-x11 libusb-1.0 screen sudo pulseaudio pulseaudio-utils gstreamer0.10 alsa-base alsa-utils -y && apt-get clean
 RUN install -d -m755 -o pulse -g pulse /run/pulse
 RUN mkdir /var/run/dbus && chown messagebus:messagebus /var/run/dbus/
@@ -43,13 +43,19 @@ RUN sudo apt-get install -y lliurex-artwork-icons lliurex-artwork-icons-neu pyth
 
 RUN apt-get install -y libcanberra-gtk-module libcanberra-gtk3-module 
 
-#rsyslog
-#RUN sed -i "s/#cron/cron /g" /etc/rsyslog.d/50-default.conf
-#RUN touch /var/log/cron.log
-#RUN chown syslog:adm /var/log/cron.log
-#RUN touch /etc/cron.d/test
-#RUN echo "* * * * * root /usr/bin/ffplay /root/file_example_MP3_5MG.mp3" > /etc/cron.d/test
+#sudoers
 
+RUN touch zz-n4d-server zz-cron zz-crontab
+RUN echo "ALL     ALL=NOPASSWD:/usr/sbin/n4d-server" > zz-n4d-server
+RUN echo "ALL     ALL=NOPASSWD:/etc/init.d/cron" > zz-cron
+RUN echo "ALL     ALL=NOPASSWD:/usr/bin/crontab" > zz-crontab
+RUN chown root:root zz-n4d-server zz-cron zz-crontab
+RUN chmod 0440 zz-n4d-server zz-cron zz-crontab 
+RUN mv zz-* /etc/sudoers.d/
+
+#pulse audio fix
+
+RUN sed -i "s/; enable-shm = yes/enable-shm = no/g" /etc/pulse/daemon.conf && sed -i "s/; enable-shm = yes/enable-shm = no/g" /etc/pulse/client.conf
 # Ejecución app
 
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
