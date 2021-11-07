@@ -46,24 +46,26 @@ if docker ps -a --format '{{.Names}}' | grep -Eq "^${container_name}\$"; then
 
 else
 
-docker run -d --privileged \
+docker run -it --privileged \
  --net=host -v /tmp/.X11-unix:/tmp/.X11-unix \
  --device /dev/snd \
  -e DISPLAY="$DISPLAY" \
- -e XAUTHORITY=/run/user/$SUDO_UID/gdm/Xauthority \
- -v /run/user/$SUDO_UID:/run/user/$SUDO_UID \
- --env DBUS_SESSION_BUS_ADDRESS="/run/user/$SUDO_UID/bus" \
+ -e XAUTHORITY=unix:/run/user/$SUDO_UID/gdm/Xauthority \
+ -e XDG_RUNTIME_DIR=unix:/run/user/$SUDO_UID \
+ -e DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$SUDO_UID/bus \
  -e PULSE_SERVER=unix:/run/user/$SUDO_UID/pulse/native \
- -v /home/$SUDO_USER/.config/pulse/cookie:/root/.config/pulse/cookie \
- -v $STORAGE_FOLDER:/usr/local/share/bellScheduler/:rw \
- --workdir=/usr/local/share/bellScheduler/ \
+ -v /run/user/$SUDO_UID:/run/user/$SUDO_UID \
+ --workdir=/home/$SUDO_USER \
  --volume="/etc/group:/etc/group:ro" \
  --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" \
+ -e USER=$SUDO_USER -e GROUP=$SUDO_USER -e UID=$SUDO_UID -e GID=$SUDO_GID \
+ -v /home/$SUDO_USER:/home/$SUDO_USER:rw \
+ --user=$(id -u $SUDO_USER):$(id -g $SUDO_USER) \
  --name ${container_name} ${image_name} 
 
 fi
 
-#--volume="/run/user/$SUDO_UID/bus:/run/user/$SUDO_UID/bus" \
+#--volume="/run/user/$SUDO_UID/bus/run/user/$SUDO_UID/bus" \
 #-v /run/user/$SUDO_UID/gdm/Xauthority:/run/user/$SUDO_UID/gdm/Xauthority \
 #-v /usr/local/share/bellScheduler/:/usr/local/share/bellScheduler/:rw \
  #-v /etc/cron.d/:/etc/cron.d/:rw \
