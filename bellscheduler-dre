@@ -13,7 +13,7 @@ image_name=aosucas499/bellscheduler-dre:xenial
 
 #variable carpeta configuración para compartir con el contenedor
 STORAGE_FOLDER=/home/$SUDO_USER/BELLSCHEDULER
-CONFIG_FOLDER=~/home/$SUDO_USER/BELLSCHEDULER-config
+CONFIG_FOLDER=/home/$SUDO_USER/BELLSCHEDULER-config
 
 rm -r $STORAGE_FOLDER
 
