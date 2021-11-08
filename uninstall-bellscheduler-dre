@@ -45,3 +45,4 @@ echo -e "${ROJO}Si necesita restaurarla copie el archivo${NORMAL}"
 echo ""
 echo -e "${ROJO}en la carpeta /etc/cron.d${NORMAL}"
 sleep 3
+
