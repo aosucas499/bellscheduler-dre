@@ -318,22 +318,22 @@ class BellSchedulerManager(object):
 			if duration>0:
 				fade_out=int(duration)+int(start_time)-2
 				fade_effects='-af aformat=channel_layouts=mono -af afade=in:st='+str(start_time)+':d=3,afade=out:st='+str(fade_out)+":d=2"
-				cmd=self.cmd_create_token+item+" && ffplay -nodisp -autoexit " + "-ss "+ str(start_time) +" -t "+str(duration)
+				cmd="ffplay -nodisp -autoexit " + "-ss "+ str(start_time) +" -t "+str(duration)
 			else:
 				fade_effects='-af aformat=channel_layouts=mono '
-				cmd=self.cmd_create_token+item+" && ffplay -nodisp -autoexit -ss "+str(start_time)
+				cmd="ffplay -nodisp -autoexit -ss "+str(start_time)
 
 			if sound_option=="file":
-				cmd=cmd+' "'+ sound_path +'" '+fade_effects+';'+self.cmd_remove_token+item
+				cmd=cmd+' "'+ sound_path +'" '+fade_effects+';'
 			elif sound_option=="url":
 				sound_path=sound_path.replace("%","\%")
-				cmd=cmd+ ' $(youtube-dl -g "'+sound_path+'" | sed -n 2p) '+fade_effects+';'+self.cmd_remove_token+item	
+				cmd=cmd+ ' $(youtube-dl -g "'+sound_path+'" | sed -n 2p) '+fade_effects+';'
 			else:
 				random_file="$(randomaudiofile" + " '"+sound_path+"')"
 				if sound_option=="directory":
-					cmd=cmd+' "'+ random_file + '" '+fade_effects+';'+self.cmd_remove_token+item
+					cmd=cmd+' "'+ random_file + '" '+fade_effects+';'
 				elif sound_option=="urlslist":
-					cmd=cmd+ ' $(youtube-dl -g "'+random_file+'" | sed -n 2p) '+fade_effects+';'+self.cmd_remove_token+item
+					cmd=cmd+ ' $(youtube-dl -g "'+random_file+'" | sed -n 2p) '+fade_effects+';'
 				
 			info_to_cron["BellScheduler"][key]["cmd"]=cmd
 
