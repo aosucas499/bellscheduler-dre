@@ -38,32 +38,38 @@ docker stop $container_name && docker rm $container_name
 #Descargamos mp3 de prueba en la carpeta compartida
 wget https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3 -O /home/$SUDO_USER/BELLSCHEDULER/file_example_MP3_5MG.mp3
 
+#touch /home/$SUDO_USER/crontab && crontab -u admin /home/$SUDO_USER/crontab
+
 # Lanzamos el contenedor creándolo si no existe.
- 
+  
 sleep 5
 if docker ps -a --format '{{.Names}}' | grep -Eq "^${container_name}\$"; then
    	docker start ${container_name}
 
 else
 
-docker run -d --privileged \
+docker run -it --privileged \
  --net=host -v /tmp/.X11-unix:/tmp/.X11-unix \
  --device /dev/snd \
  -e DISPLAY="$DISPLAY" \
+ --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" \
  -e XAUTHORITY=/run/user/$SUDO_UID/gdm/Xauthority \
- -v /run/user/$SUDO_UID:/run/user/$SUDO_UID \
- --env DBUS_SESSION_BUS_ADDRESS="/run/user/$SUDO_UID/bus" \
+ -e XDG_RUNTIME_DIR=/run/user/$SUDO_UID \
  -e PULSE_SERVER=unix:/run/user/$SUDO_UID/pulse/native \
+ -e HOST_USER=$SUDO_USER \
+ -v /run/user/$SUDO_UID:/run/user/$SUDO_UID \
  -v /home/$SUDO_USER/.config/pulse/cookie:/root/.config/pulse/cookie \
- -v $STORAGE_FOLDER:/usr/local/share/bellScheduler/:rw \
- --workdir=/usr/local/share/bellScheduler/ \
+ --group-add $(getent group audio | cut -d: -f3) \
+ --workdir=/root \
  --volume="/etc/group:/etc/group:ro" \
  --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" \
+ -v /etc/cron.d:/etc/cron.d \
+ -v $STORAGE_FOLDER:/root:rw \
  --name ${container_name} ${image_name} 
 
 fi
 
-#--volume="/run/user/$SUDO_UID/bus:/run/user/$SUDO_UID/bus" \
+#--volume="/run/user/$SUDO_UID/bus/run/user/$SUDO_UID/bus" \
 #-v /run/user/$SUDO_UID/gdm/Xauthority:/run/user/$SUDO_UID/gdm/Xauthority \
 #-v /usr/local/share/bellScheduler/:/usr/local/share/bellScheduler/:rw \
  #-v /etc/cron.d/:/etc/cron.d/:rw \
