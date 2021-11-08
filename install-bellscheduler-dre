@@ -135,7 +135,7 @@ if [[ $DESKTOP = ubuntu:GNOME || $DESKTOP = ubuntu || $DESKTOP = GNOME || $DESKT
     	sudo chown root:root zz-bellscheduler-dre
     	sudo chmod 0440 zz-bellscheduler-dre
     	sudo cp zz-bellscheduler-dre /etc/sudoers.d/ 
-    	sudo cp bellscheduler-dre.desktop /etc/xdg/autostart/
+    	#sudo cp bellscheduler-dre.desktop /etc/xdg/autostart/
     	sudo cp bellscheduler-dre.desktop /usr/share/applications/
 	
 # Añadir iconos originales al sistema
