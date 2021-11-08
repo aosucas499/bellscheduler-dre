@@ -19,7 +19,7 @@ class SchedulerClient():
 		self.count=0
 		self.dbg=0
 		self.holidays_shell="/usr/bin/check_holidays.py"
-
+		
 	def startup(self,options):
 		t=threading.Thread(target=self._main_thread)
 		t.daemon=True
@@ -87,17 +87,20 @@ class SchedulerClient():
 					self._write_crontab_for_task(task_names,prefix)
 
 	#def process_tasks
+	
 
 	def _write_crontab_for_task(self,ftask,prefix):
 		cron_array=[]
 		for task_name,task_data in ftask.iteritems():
 			self._debug("Writing data %s: %s"%(task_name,task_data))
 			fname=self.cron_dir+'/'+prefix+task_name.replace(' ','_')
-			cron_task=("%s %s %s %s %s root %s"%(task_data['m'],task_data['h'],task_data['dom'],\
-				task_data['mon'],task_data['dow'],u""+task_data['cmd']))
+			#var included in docker run
+			hostuser=os.getenv("HOST_USER")
+			cron_task=("%s %s %s %s %s %s %s"%(task_data['m'],task_data['h'],task_data['dom'],\
+				task_data['mon'],task_data['dow'],hostuser,u""+task_data['cmd']))
 			if 'holidays' in task_data.keys():
 				if task_data['holidays']:
-					cron_task=("%s %s %s %s %s root %s && %s"%(task_data['m'],task_data['h'],task_data['dom'],\
+					cron_task=("%s %s %s %s %s 1001 %s && %s"%(task_data['m'],task_data['h'],task_data['dom'],\
 						task_data['mon'],task_data['dow'],self.holidays_shell,u""+task_data['cmd']))
 			cron_array.append(cron_task)
 			if task_data:
@@ -115,11 +118,14 @@ class SchedulerClient():
 					mode='w'
 				with open(fname,mode) as data:
 					if mode=='w':
+						#var included in docker run
+						xrd=os.environ["XDG_RUNTIME_DIR"]
 						data.write('#Scheduler tasks\n')
 						data.write('SHELL=/bin/bash\n')
 						data.write('PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin\n')
 						data.write('DISPLAY=:0\n')
 						data.write('XAUTHORITY=%s\n'%default_dm)
+						data.write('XDG_RUNTIME_DIR=%s\n'%xrd)
 						if 'https_proxy' in os.environ.keys():
 							https_proxy=os.environ['https_proxy']
 							data.write('https_proxy=%s\n'%https_proxy)
