@@ -33,12 +33,11 @@ fi
 #    mkdir $CONFIG_FOLDER
 #fi
 
-docker stop $container_name && docker rm $container_name 
+docker stop $container_name 
+#&& docker rm $container_name 
 
 #Descargamos mp3 de prueba en la carpeta compartida
 wget https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3 -O /home/$SUDO_USER/BELLSCHEDULER/file_example_MP3_5MG.mp3
-
-#touch /home/$SUDO_USER/crontab && crontab -u admin /home/$SUDO_USER/crontab
 
 # Lanzamos el contenedor creándolo si no existe.
   
