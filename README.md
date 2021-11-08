@@ -28,6 +28,7 @@ Aplicación dockerizada Bell-Scheduler proveniente del sistema [Lliurex](https:/
     sudo reboot (Reboot the system - Reiniciar el sistema)
 
 
+Manual de Instrucciones de la app original (puede que alguna función no funcione): [Aquí](https://github.com/aosucas499/bellscheduler-dre/raw/docker-xenial/manual%20de%20Bell%20Scheduler-alarmas%20del%20cole.pdf
 
 <b>Thanks to</b> [Lliurex Team](https://portal.edu.gva.es/lliurex/va/) 
 
