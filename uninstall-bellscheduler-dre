@@ -33,3 +33,16 @@ sudo docker rmi aosucas499/bellscheduler-dre:focal
 #sudo delgroup docker
 
 #sudo apt purge --remove docker-ce docker-ce-cli containerd.io -y
+
+sudo mv /etc/cron.d/localBellScheduler /home/$SUDO_USER/localBellScheduler.backup
+
+echo ""
+echo -e "${ROJO}Copia de seguridad de las alarmas ${NORMAL}"
+echo ""
+echo -e "${ROJO}en la carpeta de tu usuario${NORMAL}"
+echo ""
+echo -e "${ROJO}Si necesita restaurarla copie el archivo${NORMAL}"
+echo ""
+echo -e "${ROJO}en la carpeta /etc/cron.d${NORMAL}"
+sleep 3
+
