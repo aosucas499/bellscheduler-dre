@@ -13,7 +13,7 @@ done
 
 service cron start 
 
-systemctl start cron 
+systemctl start cron
 
 screen -d -m bash -c /usr/sbin/n4d-server
 

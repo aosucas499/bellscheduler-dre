@@ -44,7 +44,6 @@ RUN sudo apt-get install -y lliurex-artwork-icons lliurex-artwork-icons-neu pyth
 RUN apt-get install -y libcanberra-gtk-module libcanberra-gtk3-module 
 
 #sudoers
-
 RUN touch zz-n4d-server zz-cron zz-crontab
 RUN echo "ALL     ALL=NOPASSWD:/usr/sbin/n4d-server" > zz-n4d-server
 RUN echo "ALL     ALL=NOPASSWD:/etc/init.d/cron" > zz-cron
@@ -54,10 +53,13 @@ RUN chmod 0440 zz-n4d-server zz-cron zz-crontab
 RUN mv zz-* /etc/sudoers.d/
 
 #pulse audio fix
-
 RUN sed -i "s/; enable-shm = yes/enable-shm = no/g" /etc/pulse/daemon.conf && sed -i "s/; enable-shm = yes/enable-shm = no/g" /etc/pulse/client.conf
-# Ejecución app
 
+# bellscheduler modifications
+COPY ./BellSchedulerManager.py /usr/share/n4d/python-plugins
+COPY ./SchedulerClient.py /usr/share/n4d/python-plugins
+
+# Ejecución app
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT [ "/bin/bash", "-c", "/docker-entrypoint.sh" ]
