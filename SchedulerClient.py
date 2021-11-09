@@ -100,8 +100,8 @@ class SchedulerClient():
 				task_data['mon'],task_data['dow'],hostuser,u""+task_data['cmd']))
 			if 'holidays' in task_data.keys():
 				if task_data['holidays']:
-					cron_task=("%s %s %s %s %s %s %s && %s"%(task_data['m'],task_data['h'],task_data['dom'],\
-						task_data['mon'],task_data['dow'],hostuser,self.holidays_shell,u""+task_data['cmd']))
+					cron_task=("%s %s %s %s %s %s %s"%(task_data['m'],task_data['h'],task_data['dom'],\
+				task_data['mon'],task_data['dow'],hostuser,u""+task_data['cmd']))
 			cron_array.append(cron_task)
 			if task_data:
 				#Find default session manager
