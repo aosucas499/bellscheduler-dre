@@ -10,6 +10,16 @@ Aplicación dockerizada Bell-Scheduler proveniente del sistema [Lliurex](https:/
 
 ![](http://wiki.lliurex.net/tiki-download_file.php?fileId=2481&display)
 
+## FUNCIONA
+
++ Sonido a las horas programadas
+
+## NO FUNCIONA
+
++ Importar y Exportar alarmas - El método elegido en esta versión está explicado en la [WIKI.](https://github.com/aosucas499/bellscheduler-dre/wiki)
++ Holidays control (es mejor no incorporar esta función, basta con tener el dispositivo silenciado o apaguado el día que es festivo).
++ Mostrar información de que la alarma está sonando. (Por ahora solo funciona ejecutar en terminal "pkill ffplay")
++ Usar sonido desde YOUTUBE (esta función no está incorporada, no funcionaba bien en la versión original y se corre el riesgo de que no descargue el sonido para la hora programada).
 
 ## INSTALL
 
