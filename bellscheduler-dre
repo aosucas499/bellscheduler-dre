@@ -13,8 +13,9 @@ image_name=aosucas499/bellscheduler-dre:xenial
 
 #variable carpeta configuración para compartir con el contenedor
 STORAGE_FOLDER=/home/$SUDO_USER/BELLSCHEDULER
-CONFIG_FOLDER=/home/$SUDO_USER/.BELLSCHEDULER-config
-BELLS_FOLDER=/home/$SUDO_USER/.BELLSCHEDULER-bells
+MUSIC_FOLDER=/home/$SUDO_USER/BELLSCHEDULER/music
+CONFIG_FOLDER=/home/$SUDO_USER/BELLSCHEDULER/config
+BELLS_FOLDER=/home/$SUDO_USER/BELLSCHEDULER/bellslist
 
 #rm -r $STORAGE_FOLDER
 #rm -r $CONFIG_FOLDER
@@ -28,13 +29,22 @@ else
     chown -R $SUDO_USER:$SUDO_USER $STORAGE_FOLDER
 fi
 
+if [ -d "$MUSIC_FOLDER" ]; then
+    echo "Carpeta $MUSIC_FOLDER existe"
+else
+    echo "Creando carpeta $MUSIC_FOLDER"
+    mkdir $MUSIC_FOLDER
+chown -R $SUDO_USER:$SUDO_USER $MUSIC_FOLDER
+
+fi
 
 if [ -d "$CONFIG_FOLDER" ]; then
     echo "Carpeta $CONFIG_FOLDER existe"
 else
     echo "Creando carpeta $CONFIG_FOLDER"
     mkdir $CONFIG_FOLDER
-chown -R $SUDO_USER:$SUDO_USER $CONFIG_FOLDER
+    chown -R $SUDO_USER:$SUDO_USER $CONFIG_FOLDER
+    #ln -s /usr/local/share/bellScheduler/sounds $CONFIG_FOLDER
 
 fi
 
@@ -50,7 +60,7 @@ docker stop $container_name
 #&& docker rm $container_name 
 
 #Descargamos mp3 de prueba en la carpeta compartida
-wget https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3 -O $STORAGE_FOLDER/file_example_MP3_5MG.mp3
+#wget https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3 -O $MUSIC_FOLDER/file_example_MP3_5MG.mp3
 
 # Lanzamos el contenedor creándolo si no existe.
   
@@ -75,8 +85,9 @@ docker run -d --privileged \
  -v /etc/passwd:/etc/passwd:ro \
  -v /etc/shadow:/etc/shadow:ro \
  -v /etc/cron.d:/etc/cron.d \
- -v $STORAGE_FOLDER:/root:rw \
- -v $CONFIG_FOLDER:/usr/local/share/bellScheduler:rw \
+ -v /usr/local/share/bellScheduler/:/usr/local/share/bellScheduler/:rw \
+ -v $CONFIG_FOLDER:/backup:rw \
+ -v $MUSIC_FOLDER:/root:rw \
  -v $BELLS_FOLDER:/etc/bellScheduler:rw \
  --workdir=/root \
  --name ${container_name} ${image_name} 
