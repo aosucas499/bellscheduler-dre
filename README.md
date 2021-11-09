@@ -3,15 +3,15 @@
 
 Aún en pruebas - TESTING
 
-Aplicación dockerizada Bell-Scheduler proveniente del sistema [Lliurex](https://portal.edu.gva.es/lliurex/va/descarregues/).
+Aplicación [dockerizada](https://www.docker.com/) 
 
-+ Ubuntu Focal and Bionic
-+ Linux Mint based on Ubuntu Focal and Bionic 
+Bell-Scheduler. **Bell Scheduler** es una aplicación destinada a programar alarmas reproduciendo el sonido que se haya asociado en cada alarma, a los días de la semana y horas programadas.
+Esta aplicación proviene del sistema [Lliurex](https://portal.edu.gva.es/lliurex/va/descarregues/).
 
 ![](http://wiki.lliurex.net/tiki-download_file.php?fileId=2481&display)
 
 ## FUNCIONA
-
++ Sistema EducaAndOS, basado en Ubuntu Focal 20.04.
 + Sonido a las horas y días de la semana programados, usando archivos de sonido.
 + Usar los archivos de audio alojados en tus sistema, explicado en la [WIKI.](https://github.com/aosucas499/bellscheduler-dre/wiki/Usar-archivos-de-audio-con-el-programa)
 
