@@ -13,9 +13,12 @@ image_name=aosucas499/bellscheduler-dre:xenial
 
 #variable carpeta configuración para compartir con el contenedor
 STORAGE_FOLDER=/home/$SUDO_USER/BELLSCHEDULER
-CONFIG_FOLDER=/home/$SUDO_USER/BELLSCHEDULER-config
+CONFIG_FOLDER=/home/$SUDO_USER/.BELLSCHEDULER-config
+BELLS_FOLDER=/home/$SUDO_USER/.BELLSCHEDULER-bells
 
-rm -r $STORAGE_FOLDER
+#rm -r $STORAGE_FOLDER
+#rm -r $CONFIG_FOLDER
+#rm -r $BELLS_FOLDER
 
 if [ -d "$STORAGE_FOLDER" ]; then
     echo "Carpeta $STORAGE_FOLDER existe"
@@ -26,18 +29,28 @@ else
 fi
 
 
-#if [ -d "$CONFIG_FOLDER" ]; then
-#    echo "Carpeta $CONFIG_FOLDER existe"
-#else
-#    echo "Creando carpeta $CONFIG_FOLDER"
-#    mkdir $CONFIG_FOLDER
-#fi
+if [ -d "$CONFIG_FOLDER" ]; then
+    echo "Carpeta $CONFIG_FOLDER existe"
+else
+    echo "Creando carpeta $CONFIG_FOLDER"
+    mkdir $CONFIG_FOLDER
+chown -R $SUDO_USER:$SUDO_USER $CONFIG_FOLDER
+
+fi
+
+if [ -d "$BELLS_FOLDER" ]; then
+    echo "Carpeta $BELLS_FOLDER existe"
+else
+    echo "Creando carpeta $BELLS_FOLDER"
+    mkdir $BELLS_FOLDER
+    chown -R $SUDO_USER:$SUDO_USER $BELLS_FOLDER
+fi
 
 docker stop $container_name 
 #&& docker rm $container_name 
 
 #Descargamos mp3 de prueba en la carpeta compartida
-wget https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3 -O /home/$SUDO_USER/BELLSCHEDULER/file_example_MP3_5MG.mp3
+wget https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3 -O $STORAGE_FOLDER/file_example_MP3_5MG.mp3
 
 # Lanzamos el contenedor creándolo si no existe.
   
@@ -54,16 +67,18 @@ docker run -d --privileged \
  --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" \
  -e XAUTHORITY=/run/user/$SUDO_UID/gdm/Xauthority \
  -e XDG_RUNTIME_DIR=/run/user/$SUDO_UID \
- -e PULSE_SERVER=unix:/run/user/$SUDO_UID/pulse/native \
  -e HOST_USER=$SUDO_USER \
+ -v /etc/timezone:/etc/timezone:ro \
+ -v /etc/localtime:/etc/localtime:ro \
  -v /run/user/$SUDO_UID:/run/user/$SUDO_UID \
- -v /home/$SUDO_USER/.config/pulse/cookie:/root/.config/pulse/cookie \
- --group-add $(getent group audio | cut -d: -f3) \
- --workdir=/root \
- --volume="/etc/group:/etc/group:ro" \
- --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" \
+ -v /etc/group:/etc/group:ro \
+ -v /etc/passwd:/etc/passwd:ro \
+ -v /etc/shadow:/etc/shadow:ro \
  -v /etc/cron.d:/etc/cron.d \
  -v $STORAGE_FOLDER:/root:rw \
+ -v $CONFIG_FOLDER:/usr/local/share/bellScheduler:rw \
+ -v $BELLS_FOLDER:/etc/bellScheduler:rw \
+ --workdir=/root \
  --name ${container_name} ${image_name} 
 
 fi
@@ -75,7 +90,7 @@ fi
 # --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" \
 # -v /home/admin/.config/pulse/cookie:/root/.config/pulse/cookie \
 # --group-add $(getent group audio | cut -d: -f3) \
-#-e PULSE_SERVER=unix:{$XDG_RUNTIME_DIR}/pulse/native \
+#-e PULSE_SERVER=unix:/run/user/$SUDO_UID/pulse/native \
 #  --volume=/run/user/$SUDO_UID/pulse/native:/run/user/$SUDO_UID/pulse/native \
  #--volume=/run/user/1001:/run/user/1001/pulse \
  #-v /etc/pulse:/etc/pulse \
