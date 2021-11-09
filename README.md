@@ -12,7 +12,7 @@ Aplicación dockerizada Bell-Scheduler proveniente del sistema [Lliurex](https:/
 
 ## FUNCIONA
 
-+ Sonido a las horas programadas
++ Sonido a las horas y días de la semana programados, usando archivos de sonido.
 
 ## NO FUNCIONA
 
