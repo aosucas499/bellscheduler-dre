@@ -13,12 +13,12 @@ Esta aplicación proviene del sistema [Lliurex](https://portal.edu.gva.es/lliure
 ## FUNCIONA
 + Sistema EducaAndOS, basado en Ubuntu Focal 20.04.
 + Sonido a las horas y días de la semana programados, usando archivos de sonido.
-+ Usar los archivos de audio alojados en tus sistema, explicado en la [WIKI.](https://github.com/aosucas499/bellscheduler-dre/wiki/Usar-archivos-de-audio-con-el-programa)
++ Usa archivos de audio alojados en tu sistema, explicado en la [WIKI.](https://github.com/aosucas499/bellscheduler-dre/wiki/Usar-archivos-de-audio-con-el-programa)
 
 ## NO FUNCIONA
 
-+ Importar y Exportar alarmas - El método elegido en esta versión está explicado en la [WIKI.](https://github.com/aosucas499/bellscheduler-dre/wiki/Importar-y-exportar-alarmas)
-+ Holidays control (es mejor no incorporar esta función, basta con tener el dispositivo silenciado o apaguado el día que es festivo).
++ Importar y Exportar alarmas - El método elegido, descartando el original, está explicado en la [WIKI.](https://github.com/aosucas499/bellscheduler-dre/wiki/Importar-y-exportar-alarmas)
++ Holidays control (es mejor no incorporar esta función, basta con tener el dispositivo silenciado o apagado el día que es festivo).
 + Mostrar información de que la alarma está sonando. (Por ahora solo funciona ejecutar en terminal "pkill ffplay")
 + Usar sonido desde YOUTUBE (esta función no está incorporada, no funcionaba bien en la versión original y se corre el riesgo de que no descargue el sonido para la hora programada).
 
