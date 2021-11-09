@@ -38,16 +38,6 @@ chown -R $SUDO_USER:$SUDO_USER $MUSIC_FOLDER
 
 fi
 
-if [ -d "$CONFIG_FOLDER" ]; then
-    echo "Carpeta $CONFIG_FOLDER existe"
-else
-    echo "Creando carpeta $CONFIG_FOLDER"
-    mkdir $CONFIG_FOLDER
-    chown -R $SUDO_USER:$SUDO_USER $CONFIG_FOLDER
-    #ln -s /usr/local/share/bellScheduler/sounds $CONFIG_FOLDER
-
-fi
-
 if [ -d "$BELLS_FOLDER" ]; then
     echo "Carpeta $BELLS_FOLDER existe"
 else
@@ -86,7 +76,6 @@ docker run -d --privileged \
  -v /etc/shadow:/etc/shadow:ro \
  -v /etc/cron.d:/etc/cron.d \
  -v /usr/local/share/bellScheduler/:/usr/local/share/bellScheduler/:rw \
- -v $CONFIG_FOLDER:/backup:rw \
  -v $MUSIC_FOLDER:/root:rw \
  -v $BELLS_FOLDER:/etc/bellScheduler:rw \
  --workdir=/root \
