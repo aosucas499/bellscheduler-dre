@@ -37,7 +37,8 @@ Esta aplicación proviene del sistema [Lliurex](https://portal.edu.gva.es/lliure
     ./install-bellscheduler-dre
     
     sudo reboot (Reboot the system - Reiniciar el sistema)
-
+    
+![](https://github.com/aosucas499/bellscheduler-dre/raw/main/icons/bellscheduler-place.png)
 
 Manual de Instrucciones de la app original (puede que alguna función no funcione): [Aquí](https://github.com/aosucas499/bellscheduler-dre/raw/docker-xenial/manual%20de%20Bell%20Scheduler-alarmas%20del%20cole.pdf)
 
