@@ -19,7 +19,9 @@ BELLS_FOLDER=/home/$SUDO_USER/BELLSCHEDULER/bellslist
 
 #rm -r $STORAGE_FOLDER
 #rm -r $CONFIG_FOLDER
+#rm -r $MUSIC_FOLDER
 #rm -r $BELLS_FOLDER
+
 
 if [ -d "$STORAGE_FOLDER" ]; then
     echo "Carpeta $STORAGE_FOLDER existe"
@@ -34,8 +36,7 @@ if [ -d "$MUSIC_FOLDER" ]; then
 else
     echo "Creando carpeta $MUSIC_FOLDER"
     mkdir $MUSIC_FOLDER
-chown -R $SUDO_USER:$SUDO_USER $MUSIC_FOLDER
-
+    chown -R $SUDO_USER:$SUDO_USER $MUSIC_FOLDER
 fi
 
 if [ -d "$BELLS_FOLDER" ]; then
@@ -78,7 +79,7 @@ docker run -d --privileged \
  -v /usr/local/share/bellScheduler/:/usr/local/share/bellScheduler/:rw \
  -v $MUSIC_FOLDER:/root:rw \
  -v $BELLS_FOLDER:/etc/bellScheduler:rw \
- --workdir=/root \
+ --workdir=/root/ \
  --name ${container_name} ${image_name} 
 
 fi
