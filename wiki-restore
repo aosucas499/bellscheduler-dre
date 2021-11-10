@@ -1,0 +1,16 @@
+## Exportar alarmas: 
+Copiar la carpeta `BELLSCHEDULER`, alojada en la carpeta de usuario, en un lugar diferente, pendrive o nube.
+
+## Importar alarmas: 
+Copiar la carpeta `BELLSCHEDULER`, que hayas guardado en otro lugar, en un pendrive o la nube, en tu carpeta de usuario. Al abrir el programa verás toda tu lista de alarmas con el botón en **OFF**. Ve pulsando en el botón hasta que cambie a **ON**, de todas las que quieras activar.
+
+### INFORMACIÓN DETALLADA
+El programa original tiene una función para crear un archivo comprimido con la lista de alarmas y los sonidos, de manera que puedes guardar la copia y restaurarla, esta versión tiene otro método y no funcionará el de la aplicación original.
+
+Por ahora el método elegido para no perder la lista de alarmas y sonidos es conservar la carpeta del programa (localizada en la carpeta de usuario con el nombre `BELLSCHEDULER`) y en caso de volver a instalar o perder algún contenido simplemente hay que copiarla a su emplazamiento original. Dentro de esta carpeta se encuentran tres carpetas que contienen lo siguiente:
+
+`music` - Es la carpeta indicada para colocar nuestros archivos de sonido al configurar las alarmas.
+
+`config` - Incluye sonidos e imágenes. En la carpeta **sounds** el programa busca los sonidos para reproducirlos, por tanto si se borran, la alarma no sonará. 
+
+`bells` - Incluye la última lista configurada de días, horas y sonidos. Si queremos tener diferentes listas, tan solo tenemos que cambiar el nombre al archivo **"bell_list"** y el día que queramos usarla nuevamente, volver a renombrarla con su nombre original. 
