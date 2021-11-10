@@ -17,7 +17,7 @@ Esta aplicación proviene del sistema [Lliurex](https://portal.edu.gva.es/lliure
 
 ## NO FUNCIONA
 
-+ Importar y Exportar alarmas - Por ahora solo puedes guardar la lista de alarmas, no los sonidos, explicado en la [WIKI.](https://github.com/aosucas499/bellscheduler-dre/wiki/Usar-archivos-de-audio-con-el-programa).
++ Importar y Exportar alarmas - No funciona el método original. Por ahora solo puedes guardar la lista de alarmas, no los sonidos, explicado en la [WIKI.](https://github.com/aosucas499/bellscheduler-dre/wiki/Copia-de-seguridad).
 + Holidays control (es mejor no incorporar esta función, basta con tener el dispositivo silenciado o apagado el día que es festivo).
 + Mostrar información de que la alarma está sonando. (Por ahora solo funciona ejecutar en terminal "pkill ffplay")
 + Usar sonido desde YOUTUBE (esta función no está incorporada, no funcionaba bien en la versión original y se corre el riesgo de que no descargue el sonido para la hora programada).
