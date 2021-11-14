@@ -1,8 +1,5 @@
 # Bell Scheduler - dre
 
-
-Aún en pruebas - TESTING
-
 Aplicación [dockerizada](https://www.docker.com/) Bell-Scheduler. 
 
 **Bell Scheduler** es una aplicación destinada a programar alarmas reproduciendo el sonido que se haya asociado en cada alarma, a los días de la semana y horas programadas.
