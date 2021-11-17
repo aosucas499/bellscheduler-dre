@@ -586,11 +586,11 @@ class BellSchedulerManager(object):
 				if not 'bellscheduler-token-management' in tasks_cron["BellScheduler"][item]["cmd"]:
 					if 'mkdir -p' in tasks_cron["BellScheduler"][item]["cmd"]:
 						write_token_command=self.cmd_create_token+tasks_cron["BellScheduler"][item]["BellId"]+" && "	
-						tmp_cmd=write_token_command+tasks_cron["BellScheduler"][item]["cmd"].split("token &&")[1].split("rm -f")[0]+self.cmd_remove_token+tasks_cron["BellScheduler"][item]["BellId"]
+						tmp_cmd=tasks_cron["BellScheduler"][item]["cmd"]
 						tasks_cron["BellScheduler"][item]["cmd"]=tmp_cmd
 					else:	
 						write_token_command=self.cmd_create_token+tasks_cron["BellScheduler"][item]["BellId"]+" && "
-						tmp_cmd=write_token_command+tasks_cron["BellScheduler"][item]["cmd"]+";"+self.cmd_remove_token+tasks_cron["BellScheduler"][item]["BellId"]
+						tmp_cmd=tasks_cron["BellScheduler"][item]["cmd"]
 						tasks_cron["BellScheduler"][item]["cmd"]=tmp_cmd
 
 				

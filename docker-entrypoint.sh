@@ -9,8 +9,6 @@ for s in $SERVICES; do
     screen -d -m bash -x -c $s
 done
 
-cp -u /root/music/* /usr/local/share/bellScheduler/sounds
-
 #export LANG=es_ES.UTF-8 
 
 #Actualizar youtube-dl en cada arranque
