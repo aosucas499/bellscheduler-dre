@@ -14,6 +14,7 @@ Esta aplicación proviene del sistema [Lliurex](https://portal.edu.gva.es/lliure
 + Importar y Exportar alarmas
 
 ## NO FUNCIONA
++ Repoducción de canciones aleatorias de un directorio.
 + Holidays control (es mejor no incorporar esta función, basta con tener el dispositivo silenciado o apagado el día que es festivo).
 + Parar alarma al sonar. (Por ahora solo funciona ejecutar en terminal "pkill ffplay")
 + Usar sonido desde YOUTUBE (esta función no está incorporada, no funcionaba bien en la versión original y se corre el riesgo de que no descargue el sonido para la hora programada).
