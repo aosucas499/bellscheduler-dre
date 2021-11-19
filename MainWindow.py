@@ -127,10 +127,10 @@ class MainWindow:
 		self.popover.set_position(Gtk.PositionType.BOTTOM)
 		self.popover.set_relative_to(self.manage_bells_button)
 
-		self.manage_holiday_button=builder.get_object("manage_holiday_button")
-		self.help_button=builder.get_object("help_button")
-		self.enable_holiday_label=builder.get_object("enable_holiday_label")
-		self.enable_holiday_switch=builder.get_object("enable_holiday_switch")
+		#self.manage_holiday_button=builder.get_object("manage_holiday_button")
+		#self.help_button=builder.get_object("help_button")
+		#self.enable_holiday_label=builder.get_object("enable_holiday_label")
+		#self.enable_holiday_switch=builder.get_object("enable_holiday_switch")
 		self.search_entry=builder.get_object("search_entry")
 		self.msg_label=builder.get_object("msg_label")
 		self.save_button=builder.get_object("save_button")
@@ -222,10 +222,10 @@ class MainWindow:
 		self.import_button.connect("clicked",self.import_clicked)
 		self.search_entry.connect("changed",self.search_entry_changed)
 		self.manage_bells_button.connect("clicked",self.manage_bells_button_clicked)
-		self.manage_holiday_button.connect("clicked",self.manage_holiday_button_clicked)
+		#self.manage_holiday_button.connect("clicked",self.manage_holiday_button_clicked)
 		self.return_button.connect("clicked",self.return_button_clicked)
-		self.enable_holiday_switch.connect("notify::active",self.enable_holiday_switch_clicked)
-		self.help_button.connect("clicked",self.help_clicked)
+		#self.enable_holiday_switch.connect("notify::active",self.enable_holiday_switch_clicked)
+		#self.help_button.connect("clicked",self.help_clicked)
 
 	#def connect_signals	
 
@@ -234,7 +234,7 @@ class MainWindow:
 
 		self.core.bellmanager.credentials=[user,pwd]
 		self.core.holidayBox.credentials=[user,pwd]
-		self._init_holiday_switch()
+		#self._init_holiday_switch()
 		self.manage_down_buttons(False)
 		result_sync=self.core.bellmanager.sync_with_cron()
 		if result_sync["status"]:
@@ -251,14 +251,14 @@ class MainWindow:
 
 	#def _signin
 
-	def _init_holiday_switch(self):
+	#def _init_holiday_switch(self):
 
-		self.holiday_control=False
+	#	self.holiday_control=False
 
-		if os.path.exists(self.holiday_token):
-			self.enable_holiday_switch.set_active(True)
-		else:
-			self.enable_holiday_switch.set_active(False)
+	#	if os.path.exists(self.holiday_token):
+	#		self.enable_holiday_switch.set_active(True)
+	#	else:
+	#		self.enable_holiday_switch.set_active(False)
 
 	#def _init_holiday_switch
 	
@@ -396,7 +396,7 @@ class MainWindow:
 			return True
 
 		else:
-			self._init_holiday_switch()
+			#self._init_holiday_switch()
 			self.waiting_window.hide()
 			if self.import_result['status']:
 				self.search_entry.set_text("")
@@ -542,14 +542,14 @@ class MainWindow:
 			self.export_button.hide()
 			self.search_entry.hide()
 			self.manage_bells_button.hide()
-			self.manage_holiday_button.hide()
+			#self.manage_holiday_button.hide()
 		else:
 			self.add_button.show()
 			self.import_button.show()
 			self.export_button.show()
 			self.search_entry.show()
 			self.manage_bells_button.show()
-			self.manage_holiday_button.show()
+			#self.manage_holiday_button.show()
 
 		
 		self.add_button.set_sensitive(sensitive)
@@ -557,8 +557,8 @@ class MainWindow:
 		self.export_button.set_sensitive(sensitive)
 		self.search_entry.set_sensitive(sensitive)
 		self.manage_bells_button.set_sensitive(sensitive)
-		self.manage_holiday_button.set_sensitive(sensitive)
-		self.enable_holiday_switch.set_sensitive(sensitive)
+		#self.manage_holiday_button.set_sensitive(sensitive)
+		#self.enable_holiday_switch.set_sensitive(sensitive)
 		
 
 	#def manage_menubar		
@@ -572,14 +572,14 @@ class MainWindow:
 			self.save_button.show()
 			self.save_button.set_sensitive(True)
 			self.msg_label.set_text("")
-			self.enable_holiday_switch.hide()
-			self.enable_holiday_label.hide()
+			#self.enable_holiday_switch.hide()
+			#self.enable_holiday_label.hide()
 		else:
 			self.cancel_button.hide()
 			self.save_button.hide()
 			self.msg_label.set_text("")
-			self.enable_holiday_switch.show()
-			self.enable_holiday_label.show()
+			#self.enable_holiday_switch.show()
+			#self.enable_holiday_label.show()
 
 
 	#def manage_down_buttons					
@@ -712,16 +712,16 @@ class MainWindow:
 
 	#def get_msg	
 			
-	def manage_holiday_button_clicked(self,widget):
+	#def manage_holiday_button_clicked(self,widget):
 
-		self.core.holidayBox.start_api_connect()
-		self.msg_label.set_text("")
-		self.manage_menubar(False)
-		self.enable_holiday_switch.hide()
-		self.enable_holiday_label.hide()
-		self.stack_opt.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT)
-		self.stack_opt.set_visible_child_name("holidayBox")
-		self.return_button.show()
+		#self.core.holidayBox.start_api_connect()
+		#self.msg_label.set_text("")
+		#self.manage_menubar(False)
+		#self.enable_holiday_switch.hide()
+		#self.enable_holiday_label.hide()
+		#self.stack_opt.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT)
+		#self.stack_opt.set_visible_child_name("holidayBox")
+		#self.return_button.show()
 
 	#def manage_holiday_button_clicked	
 
@@ -732,33 +732,33 @@ class MainWindow:
 		self.stack_opt.set_transition_type(Gtk.StackTransitionType.SLIDE_RIGHT)
 		self.stack_opt.set_visible_child_name("bellBox")
 		self.return_button.hide()
-		self.enable_holiday_switch.show()
-		self.enable_holiday_label.show()
+		#self.enable_holiday_switch.show()
+		#self.enable_holiday_label.show()
 
 
 	#def return_button_clicked
 
-	def enable_holiday_switch_clicked(self,switch,gparam):
+	#def enable_holiday_switch_clicked(self,switch,gparam):
 
-		if switch.get_active():
-			if not os.path.exists(self.holiday_token):
-				self.holiday_control=True
-				self.holiday_action="enable"
+		#if switch.get_active():
+		#	if not os.path.exists(self.holiday_token):
+		#		self.holiday_control=True
+		#		self.holiday_action="enable"
 
-		else:
-			if os.path.exists(self.holiday_token):
-				self.holiday_control=True
-				self.holiday_action="disable"
+		#else:
+		#	if os.path.exists(self.holiday_token):
+		#		self.holiday_control=True
+		#		self.holiday_action="disable"
 
-		if self.holiday_control:
-			self.manage_menubar(False)
-			self.msg_label.set_text("")
-			self.core.bellBox.manage_bells_buttons(False)
-			self.waiting_label.set_text(self.get_msg(32))			
-			self.waiting_window.show_all()
-			self.init_threads()
-			self.enable_holiday_control_t.start()
-			GLib.timeout_add(100,self.pulsate_enable_holiday_control)
+		#if self.holiday_control:
+		#	self.manage_menubar(False)
+		#	self.msg_label.set_text("")
+		#	self.core.bellBox.manage_bells_buttons(False)
+		#	self.waiting_label.set_text(self.get_msg(32))			
+		#	self.waiting_window.show_all()
+		#	self.init_threads()
+		#	self.enable_holiday_control_t.start()
+		#	GLib.timeout_add(100,self.pulsate_enable_holiday_control)
 
 
 	#def enable_holiday_switch_clicked

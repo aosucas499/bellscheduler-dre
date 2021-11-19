@@ -38,7 +38,10 @@ RUN sudo apt-get install -y --no-install-recommends lliurex-artwork-icons lliure
 COPY ./BellSchedulerManager.py /usr/share/n4d/python-plugins
 COPY ./SchedulerClient.py /usr/share/n4d/python-plugins
 COPY ./bellmanager.py /usr/lib/python3/dist-packages/bellscheduler/
-RUN sed -i "s/Holiday control deactivated successfully/Holiday control doesn't work in this version/g" /usr/lib/python3/dist-packages/bellscheduler/MainWindow.py && sed -i "s/Holiday control activated successfully/Holiday control doesn't work in this version/g" /usr/lib/python3/dist-packages/bellscheduler/MainWindow.py && sed -i "s/You must indicate a url/This function doesn't work in this version/g" /usr/lib/python3/dist-packages/bellscheduler/MainWindow.py && sed -i "s/The specified urls list has not valid urls. Errors in lines/This function doesn't work in this version/g" /usr/lib/python3/dist-packages/bellscheduler/MainWindow.py && sed -i "s/You must indicate a urls list file/This function doesn't work in this version/g" /usr/lib/python3/dist-packages/bellscheduler/MainWindow.py && sed -i "s/The sound file or url indicated is not reproducible/This function doesn't work in this version/g" /usr/lib/python3/dist-packages/bellscheduler/MainWindow.py 
+COPY ./MainWindow.py /usr/lib/python3/dist-packages/bellscheduler/
+COPY ./bell-scheduler.ui /usr/lib/python3/dist-packages/bellscheduler/rsrc
+
+
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT [ "/bin/bash", "-c", "/docker-entrypoint.sh" ]
