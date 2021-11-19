@@ -65,14 +65,14 @@ class EditBox(Gtk.VBox):
 		self.custom_rb=builder.get_object("custom_radiobutton")
 		self.image_fc=builder.get_object("image_filechosser")
 		self.sound_label=builder.get_object("sound_label")
-		self.directory_rb=builder.get_object("directory_radiobutton")
+		#self.directory_rb=builder.get_object("directory_radiobutton")
 		self.file_rb=builder.get_object("file_radiobutton")
-		self.url_rb=builder.get_object("url_radiobutton")
-		self.urlslist_rb=builder.get_object("urlslist_radiobutton")
-		self.sound_dc=builder.get_object("sound_folderchosser")
+		#self.url_rb=builder.get_object("url_radiobutton")
+		#self.urlslist_rb=builder.get_object("urlslist_radiobutton")
+		#self.sound_dc=builder.get_object("sound_folderchosser")
 		self.sound_fc=builder.get_object("sound_filechosser")
-		self.sound_url=builder.get_object("url_entry")
-		self.sound_urlslist=builder.get_object("urlslist_filechosser")
+		#self.sound_url=builder.get_object("url_entry")
+		#self.sound_urlslist=builder.get_object("urlslist_filechosser")
 
 		self.play_label=builder.get_object("play_label")
 		self.start_time_label=builder.get_object("start_time_label")
@@ -135,10 +135,10 @@ class EditBox(Gtk.VBox):
 
 		self.stock_rb.connect("toggled",self.image_toggled_button,"stock")
 		self.custom_rb.connect("toggled",self.image_toggled_button,"custom")
-		self.directory_rb.connect("toggled",self.sound_toggled_button,"directory")
+		#self.directory_rb.connect("toggled",self.sound_toggled_button,"directory")
 		self.file_rb.connect("toggled",self.sound_toggled_button,"file")
-		self.url_rb.connect("toggled",self.sound_toggled_button,"url")
-		self.urlslist_rb.connect("toggled",self.sound_toggled_button,"urlslist")
+		#self.url_rb.connect("toggled",self.sound_toggled_button,"url")
+		#self.urlslist_rb.connect("toggled",self.sound_toggled_button,"urlslist")
 		self.image_fc.connect("file-set",self.check_mimetype_image)
 		self.sound_fc.connect("file-set",self.check_mimetype_sound)
 
@@ -158,9 +158,9 @@ class EditBox(Gtk.VBox):
 		self.image_cb.set_active(1)
 		self.image_fc.set_sensitive(False)
 		self.sound_op="file"
-		self.sound_dc.set_sensitive(False)
-		self.sound_url.set_sensitive(False)
-		self.sound_urlslist.set_sensitive(False)
+		#self.sound_dc.set_sensitive(False)
+		#self.sound_url.set_sensitive(False)
+		#self.sound_urlslist.set_sensitive(False)
 		self.start_time_entry.set_value(0)
 		self.duration_entry.set_value(30)
 		self.init_threads()
@@ -187,30 +187,30 @@ class EditBox(Gtk.VBox):
 	def sound_toggled_button(self,button,name):
 
 		if button.get_active():
-			if name=="directory":
-				self.sound_dc.set_sensitive(True)
-				self.sound_fc.set_sensitive(False)
-				self.sound_url.set_sensitive(False)
-				self.sound_urlslist.set_sensitive(False)
-				self.sound_op="directory"
-			elif name=="file":
-				self.sound_dc.set_sensitive(False)
+			#if name=="directory":
+				#self.sound_dc.set_sensitive(True)
+				#self.sound_fc.set_sensitive(False)
+				#self.sound_url.set_sensitive(False)
+				#self.sound_urlslist.set_sensitive(False)
+				#self.sound_op="directory"
+			if name=="file":
+				#self.sound_dc.set_sensitive(False)
 				self.sound_fc.set_sensitive(True)
-				self.sound_url.set_sensitive(False)
-				self.sound_urlslist.set_sensitive(False)
+				#self.sound_url.set_sensitive(False)
+				#self.sound_urlslist.set_sensitive(False)
 				self.sound_op="file"
-			elif name=="url":
-				self.sound_dc.set_sensitive(False)
-				self.sound_fc.set_sensitive(False)
-				self.sound_url.set_sensitive(True)
-				self.sound_urlslist.set_sensitive(False)	
-				self.sound_op="url"
-			elif name=="urlslist":
-				self.sound_dc.set_sensitive(False)
-				self.sound_fc.set_sensitive(False)
-				self.sound_url.set_sensitive(False)
-				self.sound_urlslist.set_sensitive(True)	
-				self.sound_op="urlslist"		
+			#elif name=="url":
+				#self.sound_dc.set_sensitive(False)
+				#self.sound_fc.set_sensitive(False)
+				#self.sound_url.set_sensitive(True)
+				#self.sound_urlslist.set_sensitive(False)	
+				#self.sound_op="url"
+			#elif name=="urlslist":
+				#self.sound_dc.set_sensitive(False)
+				#self.sound_fc.set_sensitive(False)
+				#self.sound_url.set_sensitive(False)
+				#self.sound_urlslist.set_sensitive(True)	
+				#self.sound_op="urlslist"		
 
 	#def sound_toggled_button 					
 	
@@ -253,21 +253,21 @@ class EditBox(Gtk.VBox):
 
 		sound_op=bell_to_edit["sound"]["option"]
 
-		if sound_op=="directory":
-			self.directory_rb.set_active(True)
-			if os.path.exists(bell_to_edit["sound"]["path"]):
-				self.sound_dc.set_filename(bell_to_edit["sound"]["path"])
-		elif sound_op=="file":
+		#if sound_op=="directory":
+		#	self.directory_rb.set_active(True)
+		#	if os.path.exists(bell_to_edit["sound"]["path"]):
+		#		self.sound_dc.set_filename(bell_to_edit["sound"]["path"])
+		if sound_op=="file":
 			self.file_rb.set_active(True)
 			if os.path.exists(bell_to_edit["sound"]["path"]):
 				self.sound_fc.set_filename(bell_to_edit["sound"]["path"])	
-		elif sound_op=="url":
-			self.url_rb.set_active(True)
-			self.sound_url.set_text(bell_to_edit["sound"]["path"])
-		elif sound_op=="urlslist":
-			self.urlslist_rb.set_active(True)
-			if os.path.exists(bell_to_edit["sound"]["path"]):
-				self.sound_urlslist.set_filename(bell_to_edit["sound"]["path"])		
+		#elif sound_op=="url":
+			#self.url_rb.set_active(True)
+			#self.sound_url.set_text(bell_to_edit["sound"]["path"])
+		#elif sound_op=="urlslist":
+		#	self.urlslist_rb.set_active(True)
+		#	if os.path.exists(bell_to_edit["sound"]["path"]):
+		#		self.sound_urlslist.set_filename(bell_to_edit["sound"]["path"])		
 
 		self.duration_entry.set_value(bell_to_edit["play"]["duration"])
 		try:
@@ -302,18 +302,18 @@ class EditBox(Gtk.VBox):
 			self.image_path=self.image_fc.get_filename()
 			self.data_tocheck["image"]["file"]=self.image_path
 
-		if self.sound_op=="directory":
-			self.sound_path=self.sound_dc.get_filename()
-			self.data_tocheck["sound"]["file"]=self.sound_path
-		elif self.sound_op=="file":
+		#if self.sound_op=="directory":
+		#	self.sound_path=self.sound_dc.get_filename()
+		#	self.data_tocheck["sound"]["file"]=self.sound_path
+		if self.sound_op=="file":
 			self.sound_path=self.sound_fc.get_filename()
 			self.data_tocheck["sound"]["file"]=self.sound_path
-		elif self.sound_op=="url":	
-			self.sound_path=self.sound_url.get_text().split('\n')[0]
-			self.data_tocheck["sound"]["file"]=self.sound_path
-		elif self.sound_op=="urlslist":
-			self.sound_path=self.sound_urlslist.get_filename()
-			self.data_tocheck["sound"]["file"]=self.sound_path	
+		#elif self.sound_op=="url":	
+			#self.sound_path=self.sound_url.get_text().split('\n')[0]
+			#self.data_tocheck["sound"]["file"]=self.sound_path
+		#elif self.sound_op=="urlslist":
+		#	self.sound_path=self.sound_urlslist.get_filename()
+		#	self.data_tocheck["sound"]["file"]=self.sound_path	
 			
 		self.duration=self.duration_entry.get_value_as_int()
 		self.start_time=self.start_time_entry.get_value_as_int()
@@ -515,9 +515,9 @@ class EditBox(Gtk.VBox):
 		self.custom_rb.set_sensitive(sensitive)
 
 		self.file_rb.set_sensitive(sensitive)
-		self.directory_rb.set_sensitive(sensitive)
-		self.url_rb.set_sensitive(sensitive)
-		self.urlslist_rb.set_sensitive(sensitive)
+		#self.directory_rb.set_sensitive(sensitive)
+		#self.url_rb.set_sensitive(sensitive)
+		#self.urlslist_rb.set_sensitive(sensitive)
 
 		if self.image_op=="stock":
 			self.image_cb.set_sensitive(sensitive)
@@ -526,12 +526,12 @@ class EditBox(Gtk.VBox):
 
 		if self.sound_op=="file":
 			self.sound_fc.set_sensitive(sensitive)
-		elif self.sound_op=="directory":
-			self.sound_dc.set_sensitive(sensitive)
-		elif self.sound_op=="url":
-			self.sound_url.set_sensitive(sensitive)			
-		elif self.sound_op=="urlslist":
-			self.sound_urlslist.set_sensitive(sensitive)		
+		#elif self.sound_op=="directory":
+		#	self.sound_dc.set_sensitive(sensitive)
+		#elif self.sound_op=="url":
+		#	self.sound_url.set_sensitive(sensitive)			
+		#elif self.sound_op=="urlslist":
+		#	self.sound_urlslist.set_sensitive(sensitive)		
 
 		self.duration_entry.set_sensitive(sensitive)
 		self.start_time_entry.set_sensitive(sensitive)

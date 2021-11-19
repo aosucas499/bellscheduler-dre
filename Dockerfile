@@ -39,6 +39,7 @@ COPY ./BellSchedulerManager.py /usr/share/n4d/python-plugins
 COPY ./SchedulerClient.py /usr/share/n4d/python-plugins
 COPY ./bellmanager.py /usr/lib/python3/dist-packages/bellscheduler/
 COPY ./MainWindow.py /usr/lib/python3/dist-packages/bellscheduler/
+COPY ./EditBox.py /usr/lib/python3/dist-packages/bellscheduler/
 COPY ./bell-scheduler.ui /usr/lib/python3/dist-packages/bellscheduler/rsrc
 
 

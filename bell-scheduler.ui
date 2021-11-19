@@ -369,37 +369,8 @@
                                 <property name="top_attach">1</property>
                               </packing>
                             </child>
-                            <child>
-                              <object class="GtkRadioButton" id="url_radiobutton">
-                                <property name="label" translatable="yes">YouTube url</property>
-                                <property name="use_action_appearance">False</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">False</property>
-                                <property name="margin_top">7</property>
-                                <property name="margin_bottom">5</property>
-                                <property name="xalign">0</property>
-                                <property name="draw_indicator">True</property>
-                                <property name="group">file_radiobutton</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">1</property>
-                                <property name="top_attach">3</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkEntry" id="url_entry">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="margin_top">7</property>
-                                <property name="margin_bottom">5</property>
-                                <property name="input_purpose">url</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">2</property>
-                                <property name="top_attach">3</property>
-                              </packing>
-                            </child>
+                            
+                            
                             <child>
                               <object class="GtkRadioButton" id="file_radiobutton">
                                 <property name="label" translatable="yes">Sound file</property>
@@ -430,69 +401,10 @@
                                 <property name="top_attach">1</property>
                               </packing>
                             </child>
-                            <child>
-                              <object class="GtkRadioButton" id="directory_radiobutton">
-                                <property name="label" translatable="yes">Random from directory</property>
-                                <property name="use_action_appearance">False</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">False</property>
-                                <property name="margin_top">7</property>
-                                <property name="margin_bottom">5</property>
-                                <property name="xalign">0</property>
-                                <property name="active">True</property>
-                                <property name="draw_indicator">True</property>
-                                <property name="group">file_radiobutton</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">1</property>
-                                <property name="top_attach">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkFileChooserButton" id="sound_folderchosser">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="margin_top">7</property>
-                                <property name="margin_bottom">5</property>
-                                <property name="action">select-folder</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">2</property>
-                                <property name="top_attach">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkRadioButton" id="urlslist_radiobutton">
-                                <property name="label" translatable="yes">Random from urls list</property>
-                                <property name="use_action_appearance">False</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">False</property>
-                                <property name="margin_top">7</property>
-                                <property name="margin_bottom">5</property>
-                                <property name="xalign">0</property>
-                                <property name="draw_indicator">True</property>
-                                <property name="group">file_radiobutton</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">1</property>
-                                <property name="top_attach">4</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkFileChooserButton" id="urlslist_filechosser">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="margin_top">7</property>
-                                <property name="margin_bottom">5</property>
-                                <property name="create_folders">False</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">2</property>
-                                <property name="top_attach">4</property>
-                              </packing>
-                            </child>
+                            
+                            
+                            
+                            
                             <child>
                               <object class="GtkLabel" id="play_label">
                                 <property name="visible">True</property>
