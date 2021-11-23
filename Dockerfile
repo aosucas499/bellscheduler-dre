@@ -1,48 +1,52 @@
-#aosucas499/bell-scheduler
-# basado en ubuntu 16 xenial
-# con repositorios de lliurex 16-32bits
+#aosucas499/guadalinex:edu
+# basado en ubuntu 14 trusty 
+# con repositorios de guadalinex edu 
  
-
 # Comando para crear imagen docker, usar comando en la misma carpeta de este archivo
-# sudo docker build -t aosucas499/bellscheduler-dre:xenial .
+# sudo docker build -t aosucas499/guadalinex:sigala .
 
 # Uso de la imagen y variables
-FROM i386/ubuntu:xenial
+FROM lliurex/i386-ubuntu:14.04
 MAINTAINER Andrés Osuna <aosucas499gmail.com>
 ENV DEBIAN_FRONTEND=noninteractive
 ENV QT_X11_NO_MITSHM=1
 
-# Paquetes previos
-RUN mkdir /etc/cron.d  && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p
-RUN apt-get update && apt-get install nano wget -y 
-RUN apt-get update && apt-get install -y --no-install-recommends libnotify-bin dbus dbus-x11 libusb-1.0 screen sudo && apt-get clean
+# Paquetes primarios
+RUN echo exit 0 > /usr/sbin/policy-rc.d && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p 
+RUN apt-get update && apt-get install nano wget grep -y 
+
+# Instala repositorios guadalinex edu 2013
+RUN rm /etc/apt/sources.list 
+ARG REPO1=http://centros.edu.guadalinex.org/Edu/fenix/
+ARG REPO2=http://centros.edu.guadalinex.org/Edu/fenixsc/
+ARG REPO3=http://centros.edu.guadalinex.org/Edu/fenixscmd/
+ARG REPO4=http://centros.edu.guadalinex.org/Edu/fenixscpdi/
+RUN echo deb $REPO1 guadalinexedu main > /etc/apt/sources.list && echo deb $REPO2 guadalinexedu main > /etc/apt/sources.list.d/guadalinex.list && echo deb $REPO3 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex.list && echo deb $REPO4 guadalinexedu main >> etc/apt/sources.list.d/guadalinex.list
+#RUN wget http://centros.edu.guadalinex.org/Edu/fenix/pool/main/g/guadalinexedu-keyring/guadalinexedu-keyring_0.2-1_all.deb
+COPY guadalinexedu-keyring_0.2-1_all.deb /
+RUN dpkg -i guadalinexedu-keyring_0.2-1_all.deb && rm *.deb
+RUN apt-get update && apt-get install libnotify-bin dbus dbus-x11 libusb-1.0 python screen sudo --no-install-recommends -y && apt-get clean
 RUN mkdir /var/run/dbus && chown messagebus:messagebus /var/run/dbus/
 
-# Repo Lliurex 16
-ARG REPO=http://lliurex.net/xenial
-RUN mkdir -p /etc/apt/trusted.gpg.d/
-RUN wget https://github.com/lliurex/lliurex-keyring/raw/master/keyrings/lliurex-archive-keyring-gpg.gpg -q -O /etc/apt/trusted.gpg.d/lliurex.gpg
-RUN echo deb [trusted=yes] $REPO xenial main universe multiverse > /etc/apt/sources.list.d/lliurex.list && apt-get update
-#RUN wget http://lliurex.net/xenial/pool/main/l/lliurex-keyring/lliurex-keyring_0.1.2_all.deb
-#COPY lliurex-keyring_0.1.2_all.deb /
-#RUN dpkg -i lliurex-keyring_0.1.2_all.deb && rm *.deb
+# Instala app HGR-SIGALA y sus dependencias
+RUN apt-get update && apt-get install -y python-avahi python-qt4 python-qt4-dbus python-netifaces python-sleekxmpp python-webdav x11vnc xtightvncviewer xvnc4viewer vlc rlwrap avahi-daemon setcd python-dnspython curl patch --no-install-recommends
+RUN apt-get update && apt-get install guadalinexedu-artwork python-gobject python-gtk2 ejabberd python-sleekxmpp cga-hga -y --no-install-recommends && rm *.deb -f && apt-get clean -y
 
-# Iconos y adaptar a educaandos
-RUN apt-get install -y --no-install-recommends --yes breeze-icon-theme libcanberra-gtk-module libcanberra-gtk3-module 
-RUN cp -r /usr/share/icons/breeze /usr/share/icons/EducaAndOSIcons
+# Modificaciones del código de la app sigala
+COPY sigala-install.patch /
+RUN patch /usr/lib/python2.7/dist-packages/hga/controlcompartir/cliente/davclient.py sigala-install.patch && rm *.patch
+RUN sed -i "s/enviados/enviados. Compruebe que el archivo está en la carpeta HGR de su carpeta personal./g" /usr/lib/python2.7/dist-packages/hga/controlcompartir/cliente/sshareddirclient.py
 
-# Instalar bell-scheduler
-RUN sudo apt-get install -y --no-install-recommends lliurex-artwork-icons lliurex-artwork-icons-neu python3-netifaces python3-gi python3-gi-cairo gir1.2-appindicator3-0.1 gir1.2-gtk-3.0 gir1.2-notify python-psutil taskscheduler bell-scheduler
+# Modificaciones del servicio ejabberd
+RUN echo "ALL     ALL=NOPASSWD:/usr/bin/cga-hgr-client" >> /etc/sudoers.d/ejabberd-cgaconfig
+RUN echo "ALL     ALL=NOPASSWD:/usr/bin/cga-hgr-server" >> /etc/sudoers.d/ejabberd-cgaconfig
+COPY ejabberdctl /usr/sbin/
+RUN chmod +x /usr/sbin/ejabberdctl
+COPY ejabberd /etc/init.d/
+RUN chmod +x /etc/init.d/ejabberd
 
-# bellscheduler modifications
-COPY ./BellSchedulerManager.py /usr/share/n4d/python-plugins
-COPY ./SchedulerClient.py /usr/share/n4d/python-plugins
-COPY ./bellmanager.py /usr/lib/python3/dist-packages/bellscheduler/
-COPY ./MainWindow.py /usr/lib/python3/dist-packages/bellscheduler/
-COPY ./EditBox.py /usr/lib/python3/dist-packages/bellscheduler/
-COPY ./bell-scheduler.ui /usr/lib/python3/dist-packages/bellscheduler/rsrc
+# Docker point 
+COPY docker-entrypoint*.sh /
+RUN chmod +x docker-entrypoint*
 
-
-COPY ./docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
-ENTRYPOINT [ "/bin/bash", "-c", "/docker-entrypoint.sh" ]
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
