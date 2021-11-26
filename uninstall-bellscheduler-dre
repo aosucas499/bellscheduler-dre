@@ -18,6 +18,12 @@ sudo rm /usr/bin/bellscheduler-dre
 
 sudo rm /etc/sudoers.d/zz-bellscheduler-dre
 
+sudo rm -r /usr/lib/python3/dist-packages/bellscheduler-dre-appindicator
+
+sudo rm /etc/xdg/autostart/bellscheduler-dre-appindicator.desktop
+
+sudo rm -r /home/$USER/BELLSCHEDULER
+
 sudo docker stop bellscheduler
 
 sudo docker rm bellscheduler
@@ -34,15 +40,5 @@ sudo docker rmi aosucas499/bellscheduler-dre:focal
 
 #sudo apt purge --remove docker-ce docker-ce-cli containerd.io -y
 
-sudo mv /etc/cron.d/localBellScheduler /home/$USER/localBellScheduler.backup
 
-echo ""
-echo -e "${ROJO}Copia de seguridad de las alarmas ${NORMAL}"
-echo ""
-echo -e "${ROJO}en la carpeta de tu usuario${NORMAL}"
-echo ""
-echo -e "${ROJO}Si necesita restaurarla copie el archivo${NORMAL}"
-echo ""
-echo -e "${ROJO}en la carpeta /etc/cron.d${NORMAL}"
-sleep 3
 
