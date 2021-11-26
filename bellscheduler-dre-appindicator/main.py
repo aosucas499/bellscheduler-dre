@@ -19,7 +19,7 @@ APPINDICATOR_ID = "Bell Scheduler Docker stop music"
 def main():
 	indicator = AppIndicator3.Indicator.new(
 			APPINDICATOR_ID,
-			os.path.abspath("bell-scheduler.png"),
+			os.path.abspath("/usr/lib/python3/dist-packages/bellscheduler-dre-appindicator/bell-scheduler.png"),
 			AppIndicator3.IndicatorCategory.SYSTEM_SERVICES)
 	indicator.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
 	indicator.set_menu(menu_build())
