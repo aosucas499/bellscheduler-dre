@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Exec=screen -d -m python3 /usr/lib/python3/dist-packages/bellscheduler-dre-appindicator/main.py
+Terminal=false
+Name[es_ES]=Bell Scheduler-appindicator-dre
+Comment[es_ES]=
+

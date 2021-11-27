@@ -138,6 +138,17 @@ if [[ $DESKTOP = ubuntu:GNOME || $DESKTOP = ubuntu || $DESKTOP = GNOME || $DESKT
     	#sudo cp bellscheduler-dre.desktop /etc/xdg/autostart/
     	sudo cp bellscheduler-dre.desktop /usr/share/applications/
 	
+# Copiar la aplicación bellscheduler-dre-appindicator en la carpeta python
+#
+
+	echo ""
+	echo -e "${AZUL}Instalando la app de la barra del sistema para parar la música...${NORMAL}"
+	echo ""
+	echo -e "${AZUL}Installing system tray icon to stop music...${NORMAL}"
+	echo ""
+	sudo cp -r bellscheduler-dre-appindicator /usr/lib/python3/dist-packages
+	sudo cp bellscheduler-dre-appindicator/bellscheduler-dre-appindicator.desktop /etc/xdg/autostart/
+	
 # Añadir iconos originales al sistema
 #
 	sudo cp  icons/bell-scheduler.png /usr/share/icons
