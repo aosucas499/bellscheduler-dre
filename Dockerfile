@@ -27,9 +27,13 @@ RUN echo deb [trusted=yes] $REPO xenial main universe multiverse > /etc/apt/sour
 #COPY lliurex-keyring_0.1.2_all.deb /
 #RUN dpkg -i lliurex-keyring_0.1.2_all.deb && rm *.deb
 
-# Iconos y adaptar a educaandos
+# Iconos y adaptar a educaandos, linux mint cinnamon
 RUN apt-get install -y --no-install-recommends --yes breeze-icon-theme libcanberra-gtk-module libcanberra-gtk3-module 
 RUN cp -r /usr/share/icons/breeze /usr/share/icons/EducaAndOSIcons
+RUN cp -r /usr/share/icons/breeze /usr/share/icons/Mint-Y
+RUN cp -r /usr/share/icons/breeze /usr/share/icons/Mint-X
+RUN cp -r /usr/share/icons/breeze /usr/share/icons/Mint-Y-Dark
+RUN cp -r /usr/share/icons/breeze /usr/share/icons/mate
 
 # Instalar bell-scheduler
 RUN sudo apt-get install -y --no-install-recommends lliurex-artwork-icons lliurex-artwork-icons-neu python3-netifaces python3-gi python3-gi-cairo gir1.2-appindicator3-0.1 gir1.2-gtk-3.0 gir1.2-notify python-psutil taskscheduler bell-scheduler
