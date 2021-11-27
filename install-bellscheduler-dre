@@ -100,7 +100,7 @@ if [[ $DESKTOP = ubuntu:GNOME || $DESKTOP = ubuntu || $DESKTOP = GNOME || $DESKT
 	echo ""
 	sudo apt update
 	sudo apt install -f
-	sudo apt-get install screen apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
+	sudo apt-get install screen gir1.2-appindicator3-0.1 apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
 	sudo apt install -f
 	sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 	#sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $DISTRO stable"
