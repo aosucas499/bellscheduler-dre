@@ -9,12 +9,12 @@ Esta aplicación proviene del sistema [Lliurex](https://portal.edu.gva.es/lliure
 
 ![](https://github.com/aosucas499/bellscheduler-dre/raw/testing/bellscheduler-dre-appindicator/screenshot.png)
 
-## FUNCIONA
-+ Sistema EducaAndOS, basado en Ubuntu Focal 20.04.
+## Compatibilidad y funcionamiento
++ Compatible con Ubuntu 20.04 Focal, Linux Mint (20, 20.1, 20.2) y EducaAndOS, sistema basado en Ubuntu Focal 20.04.
 + Sonido a las horas y días de la semana programados, usando archivos de sonido.
 + Usa archivos de audio alojados en tu sistema, explicado en la [WIKI.](https://github.com/aosucas499/bellscheduler-dre/wiki/Usar-archivos-de-audio-con-el-programa)
-+ Importar y Exportar alarmas
-+ Parar alarma al sonar.
++ Importar y Exportar alarmas (si usas backup de la app original de Lliurex, leer la [wiki](https://github.com/aosucas499/bellscheduler-dre/wiki/Usar-archivos-de-audio-con-el-programa)
++ App en la barra de notificaciones que para la música en caso necesario.
 
 ![](http://wiki.lliurex.net/tiki-download_file.php?fileId=2481&display)
 
