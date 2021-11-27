@@ -22,7 +22,7 @@ sudo rm -r /usr/lib/python3/dist-packages/bellscheduler-dre-appindicator
 
 sudo rm /etc/xdg/autostart/bellscheduler-dre-appindicator.desktop
 
-sudo rm -r /home/$USER/BELLSCHEDULER
+sudo rm -r /home/$SUDO_USER/BELLSCHEDULER
 
 sudo docker stop bellscheduler
 
