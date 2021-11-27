@@ -29,11 +29,17 @@ RUN echo deb [trusted=yes] $REPO xenial main universe multiverse > /etc/apt/sour
 
 # Iconos y adaptar a educaandos, linux mint cinnamon
 RUN apt-get install -y --no-install-recommends --yes breeze-icon-theme libcanberra-gtk-module libcanberra-gtk3-module 
-RUN cp -r /usr/share/icons/breeze /usr/share/icons/EducaAndOSIcons
-RUN cp -r /usr/share/icons/breeze /usr/share/icons/Mint-Y
-RUN cp -r /usr/share/icons/breeze /usr/share/icons/Mint-X
-RUN cp -r /usr/share/icons/breeze /usr/share/icons/Mint-Y-Dark
-RUN cp -r /usr/share/icons/breeze /usr/share/icons/mate
+RUN ln -s /usr/share/icons/lliurex-neu /usr/share/icons/EducaAndOSIcons
+RUN ln -s /usr/share/icons/lliurex-neu /usr/share/icons/mate
+RUN ln -s /usr/share/icons/lliurex-neu /usr/share/icons/Mint-Y
+RUN ln -s /usr/share/icons/lliurex-neu /usr/share/icons/Mint-X
+RUN ln -s /usr/share/icons/lliurex-neu /usr/share/icons/Mint-Y-Dark
+RUN ln -s /usr/share/icons/lliurex-neu /usr/share/icons/Adwaita
+RUN ln -s /usr/share/icons/lliurex-neu /usr/share/icons/Ambiance
+RUN ln -s /usr/share/icons/lliurex-neu /usr/share/icons/ubuntu-mono-dark
+RUN ln -s /usr/share/icons/lliurex-neu /usr/share/icons/ubuntu-mono-light
+RUN ln -s /usr/share/icons/lliurex-neu /usr/share/icons/DMZ-Black
+RUN ln -s /usr/share/icons/lliurex-neu /usr/share/icons/DMZ-White
 
 # Instalar bell-scheduler
 RUN sudo apt-get install -y --no-install-recommends lliurex-artwork-icons lliurex-artwork-icons-neu python3-netifaces python3-gi python3-gi-cairo gir1.2-appindicator3-0.1 gir1.2-gtk-3.0 gir1.2-notify python-psutil taskscheduler bell-scheduler
