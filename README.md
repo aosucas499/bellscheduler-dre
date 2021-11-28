@@ -13,7 +13,7 @@ Esta aplicación proviene del sistema [Lliurex](https://portal.edu.gva.es/lliure
 + Compatible con Ubuntu 20.04 Focal, Linux Mint (20, 20.1, 20.2) y EducaAndOS, sistema basado en Ubuntu Focal 20.04.
 + Sonido a las horas y días de la semana programados, usando archivos de sonido.
 + Usa archivos de audio alojados en tu sistema, explicado en la [WIKI.](https://github.com/aosucas499/bellscheduler-dre/wiki/Usar-archivos-de-audio-con-el-programa)
-+ Importar y Exportar alarmas (si usas backup de la app original de Lliurex, leer la [wiki](https://github.com/aosucas499/bellscheduler-dre/wiki/Exportar-alarmas-de-la-app-original-de-lliurex)
++ Importar y Exportar alarmas (si usas backup de la app original de Lliurex, leer la [WIKI.](https://github.com/aosucas499/bellscheduler-dre/wiki/Exportar-alarmas-de-la-app-original-de-lliurex)
 + App en la barra de notificaciones que para la música en caso necesario.
 
 ![](https://github.com/aosucas499/bellscheduler-dre/raw/main/icons/bell-scheduler-dre.png)
@@ -21,7 +21,6 @@ Esta aplicación proviene del sistema [Lliurex](https://portal.edu.gva.es/lliure
 ## Opciones borradas de la app original
 + Repoducción de canciones aleatorias de un directorio.
 + Holidays control (es mejor no incorporar esta función, basta con tener el dispositivo silenciado o apagado el día que es festivo).
- (Por ahora solo funciona ejecutar en terminal "pkill ffplay")
 + Usar sonido desde YOUTUBE (esta función no está incorporada, no funcionaba bien en la versión original y se corre el riesgo de que no descargue el sonido para la hora programada).
 
 ## INSTALL
