@@ -16,7 +16,7 @@ Esta aplicación proviene del sistema [Lliurex](https://portal.edu.gva.es/lliure
 + Importar y Exportar alarmas (si usas backup de la app original de Lliurex, leer la [wiki](https://github.com/aosucas499/bellscheduler-dre/wiki/Exportar-alarmas-de-la-app-original-de-lliurex)
 + App en la barra de notificaciones que para la música en caso necesario.
 
-![](http://wiki.lliurex.net/tiki-download_file.php?fileId=2481&display)
+![](https://github.com/aosucas499/bellscheduler-dre/raw/main/icons/bell-scheduler-dre.png)
 
 ## Opciones borradas de la app original
 + Repoducción de canciones aleatorias de un directorio.
