@@ -24,6 +24,8 @@ sudo rm /etc/xdg/autostart/bellscheduler-dre-appindicator.desktop
 
 sudo rm -r /home/$SUDO_USER/BELLSCHEDULER
 
+sudo mv /etc/cron.d/localBellScheduler
+
 sudo docker stop bellscheduler
 
 sudo docker rm bellscheduler
